@@ -1,0 +1,53 @@
+.ion-color-tbpink {
+  --ion-color-base: var(--ion-color-tbpink);
+  --ion-color-base-rgb: var(--ion-color-tbpink-rgb);
+  --ion-color-contrast: var(--ion-color-tbpink-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-tbpink-contrast-rgb);
+  --ion-color-shade: var(--ion-color-tbpink-shade);
+  --ion-color-tint: var(--ion-color-tbpink-tint);
+}
+
+.ion-color-tbwhite {
+  --ion-color-base: var(--ion-color-tbwhite);
+  --ion-color-base-rgb: var(--ion-color-tbwhite-rgb);
+  --ion-color-contrast: var(--ion-color-tbwhite-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-tbwhite-contrast-rgb);
+  --ion-color-shade: var(--ion-color-tbwhite-shade);
+  --ion-color-tint: var(--ion-color-tbwhite-tint);
+}
+
+.ion-color-tbpurple {
+  --ion-color-base: var(--ion-color-tbpurple);
+  --ion-color-base-rgb: var(--ion-color-tbpurple-rgb);
+  --ion-color-contrast: var(--ion-color-tbpurple-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-tbpurple-contrast-rgb);
+  --ion-color-shade: var(--ion-color-tbpurple-shade);
+  --ion-color-tint: var(--ion-color-tbpurple-tint);
+}
+body {
+  --ion-background-color: #d30000;
+  font-family: inter, sans-serif;
+}
+
+.logoimg {
+  fill: red !important;
+}
+
+.background {
+  background-color: #ffffff;
+  color: #ffffff;
+}
+
+.sc-ion-input-md-h {
+  --highlight-color-focused: #50c8ff;
+  --highlight-color-valid: var(--ion-color-success, #2dd36f);
+  --highlight-color-invalid: var(--ion-color-danger, #d30000);
+  --highlight-color: var(--highlight-color-focused);
+}
+
+.input-fill-outline.sc-ion-input-md-h {
+  --border-color: #b06ed3;
+  --border-radius: 4px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}

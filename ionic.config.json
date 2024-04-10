@@ -1,0 +1,7 @@
+{
+  "name": "TaBarato?",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
