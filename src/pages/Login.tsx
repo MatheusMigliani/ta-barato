@@ -26,7 +26,7 @@ const Login: React.FC = () => {
       <IonContent className="background ion-padding" color={"dark"} fullscreen>
         <div className="ion-padding ion-text-center">
           <img
-            src="/public/assets/TA BARATO no name.svg"
+            src="assets/TA BARATO no name.svg"
             width={119}
             height={139}
             alt="logo"
