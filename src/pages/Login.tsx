@@ -11,11 +11,16 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  useIonRouter,
 } from "@ionic/react";
 import "./Login.css";
 import { logoGoogle } from "ionicons/icons";
 import { logInOutline } from "ionicons/icons";
 const Login: React.FC = () => {
+
+  
+  const router = useIonRouter();
+
   const DoLogin = (event: any) => {
     event.preventDefault();
     console.log("DoLogin");
