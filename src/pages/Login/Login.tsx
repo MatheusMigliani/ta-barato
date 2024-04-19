@@ -11,25 +11,32 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
 } from "@ionic/react";
 import "./Login.css";
 import { logoGoogle } from "ionicons/icons";
 import { logInOutline } from "ionicons/icons";
-const Login: React.FC = () => {
 
-  
+const Login: React.FC = () => {
+  const [present, dismiss] = useIonLoading();
+
   const router = useIonRouter();
 
-  const DoLogin = (event: any) => {
+  const DoLogin = async (event: any) => {
     event.preventDefault();
+    await present("Fazendo Login...");
+    setTimeout(async () => {
+      dismiss();
+      router.push("/menu", "root");
+    }, 200);
     console.log("DoLogin");
   };
 
   return (
     <IonPage className="">
       <IonContent className="background ion-padding" color={"dark"} fullscreen>
-        <div className="ion-padding ion-text-center">
+        <div className="ion-padding ion-text-center ">
           <img
             src="assets/TA BARATO no name.svg"
             width={119}
@@ -62,12 +69,12 @@ const Login: React.FC = () => {
           <IonButton
             color={"tbpink"}
             expand="block"
-            routerLink="/home"
             type="submit"
             className="ion-margin-bottom ion-margin-top"
           >
-            Entrar
-            <IonIcon icon={logInOutline} slot="end"></IonIcon>
+            <IonText color={"dark"}>Entrar</IonText>
+
+            <IonIcon icon={logInOutline} color="dark" slot="end"></IonIcon>
           </IonButton>
         </form>
         <IonButton

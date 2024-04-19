@@ -43,6 +43,7 @@ body {
   --highlight-color-valid: var(--ion-color-success, #2dd36f);
   --highlight-color-invalid: var(--ion-color-danger, #d30000);
   --highlight-color: var(--highlight-color-focused);
+  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
 }
 
 .input-fill-outline.sc-ion-input-md-h {
@@ -50,4 +51,24 @@ body {
   --border-radius: 4px;
   --padding-start: 16px;
   --padding-end: 16px;
+  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
 }
+.input-fill-outline.sc-ion-input-md-h:hover {
+  --border-color: #b06ed3;
+  --border-radius: 4px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
+  --box-shadow: 0 2px 8px rgba(0, 140, 255, 0.2); /* Sombra suave ao passar o mouse */
+}
+
+.sc-ion-input-md-h:hover {
+  --highlight-color-focused: #50c8ff;
+  --highlight-color-valid: var(--ion-color-success, #2dd36f);
+  --highlight-color-invalid: var(--ion-color-danger, #d30000);
+  --highlight-color: var(--highlight-color-focused);
+  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
+  --box-shadow: 0 2px 8px rgba(0, 140, 255, 0.2); /* Sombra suave ao passar o mouse */
+}
+
+

@@ -1,20 +1,19 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
+import Hamburguerbotao from '../../components/hamburguerbotao';
 
-const Home: React.FC = () => {
+const Tab2settings: React.FC = () => {
 
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Page Title</IonTitle>
-                </IonToolbar>
+                <Hamburguerbotao/>
             </IonHeader>
             <IonContent className="ion-padding">
-                UI goes here...
+                settings 2
             </IonContent>
         </IonPage>
     );
 };
 
-export default Home;
+export default Tab2settings;

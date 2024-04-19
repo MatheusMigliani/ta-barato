@@ -12,14 +12,26 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  useIonLoading,
+  useIonRouter,
 } from "@ionic/react";
-import { logInOutline, logoGoogle } from "ionicons/icons";
+import { checkboxOutline,  logoGoogle } from "ionicons/icons";
 import React from "react";
+import "./Register.css";
 
 const Register: React.FC = () => {
-  const DoLogin = (event: any) => {
+  const [present, dismiss] = useIonLoading();
+
+  const router = useIonRouter();
+
+  const DoRegister = async (event: any) => {
     event.preventDefault();
-    console.log("DoLogin");
+    await present("Finalizando Registro...");
+    setTimeout(async () => {
+      dismiss();
+      router.push("/menu", "root");
+    }, 2);
+    console.log("DoRegister");
   };
 
   return (
@@ -37,9 +49,9 @@ const Register: React.FC = () => {
         <div className="ion-padding ion-text-center ">
           <IonText color="tbpurple">Registro</IonText>
         </div>
-        <form onSubmit={DoLogin}>
+        <form onSubmit={DoRegister}>
           <IonInput
-            className="ion-margin-top"
+            className="custom-input ion-margin-top"
             fill="outline"
             label="Usuario"
             labelPlacement="floating"
@@ -47,7 +59,7 @@ const Register: React.FC = () => {
             type="text"
           />
           <IonInput
-            className="ion-margin-top"
+            className="custom-input ion-margin-top"
             fill="outline"
             label="Nome Completo"
             labelPlacement="floating"
@@ -96,42 +108,42 @@ const Register: React.FC = () => {
             type="date"
           />
 
-          <div color={"tbwhite"} className="ion-margin-top">
-            <IonTitle className="ion-text-center" color={"tbpink"}>
+          <div color={"tbwhite"} className="ion-margin-top bordagen">
+            <IonTitle className="ion-text-center ion-padding" color={"tbpink"}>
               Gênero
             </IonTitle>
-            <IonRadioGroup value="custom-checked">
+            <IonRadioGroup value="custom-checked" className="radio-visible">
               <IonRadio
-                slot="start"
-                color={"tbpink"}
-                className="ion-padding ion-toggle"
+                slot="end"
+                color="tbpink"
                 value="Masculino"
                 labelPlacement="fixed"
                 justify="space-between"
+                className="radio-container"
               >
                 <IonText>Masculino</IonText>
               </IonRadio>
               <br />
               <IonRadio
-                slot="en"
-                color={"tbpink"}
-                className="ion-padding"
+                slot="end"
+                color="tbpink"
                 value="Feminino"
                 labelPlacement="fixed"
                 justify="space-between"
                 aria-label="Custom checkbox"
+                className="radio-container"
               >
-                Feminino
+                <IonText>Feminino</IonText>
               </IonRadio>
               <br />
               <IonRadio
-                color={"tbpink"}
-                className="ion-padding"
+                color="tbpink"
                 value="Outros"
                 labelPlacement="fixed"
                 justify="space-between"
+                className="radio-container"
               >
-                Outros
+                <IonText>Outros</IonText>
               </IonRadio>
               <br />
             </IonRadioGroup>
@@ -193,22 +205,22 @@ const Register: React.FC = () => {
           <IonButton
             color={"tbpink"}
             expand="block"
-            routerLink="/home"
             type="submit"
             className="ion-margin-bottom ion-margin-top"
           >
-            Entrar
-            <IonIcon icon={logInOutline} slot="end"></IonIcon>
+            <IonText color={"dark"}>Registrar</IonText>
+            
+            <IonIcon icon={checkboxOutline} color="dark" slot="end"></IonIcon>
           </IonButton>
         </form>
         <IonButton
           color={"light"}
           expand="block"
           fill="clear"
-          routerLink="/login"
+          routerLink="/"
           className="ion-margin-bottom ion-margin-top ion-text-center"
         >
-          Login
+          Retornar
         </IonButton>
         <div className="ion-text-center ion-justify-content-center ion-margin-bottom">
           <IonText
