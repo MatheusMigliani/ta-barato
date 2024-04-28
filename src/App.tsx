@@ -4,7 +4,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Registro/Register";
 import Home from "./pages/Menu/Menu";
-import inicial from "./pages/Inicial/Inicial";
+import Inicial from "./pages/Inicial/Inicial";
 import Settings from "./pages/Settings/Settings";
 
 /* Core CSS required for Ionic components to work properly */
@@ -25,7 +25,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import Inicial from "./pages/Inicial/Inicial";
+
 
 setupIonicReact();
 

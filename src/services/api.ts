@@ -36,6 +36,23 @@ export const getGameInfo = async (gameId:any) => {
   }
 };
 
+export const MostPopularGame = async (gameId:any) => {
+  try {
+    const response = await http.get("games/info/v2", {
+      params: {
+        key: apiKey,
+        id: gameId,
+         // Usando o ID do jogo como parâmetro requerido
+      },
+    });
+    console.log("Game Info Data:", response.data);
+    // Supondo que a imagem do jogo esteja disponível no campo 'boxart'
+    return response.data.assets.banner600;
+  } catch (error) {
+    console.error("Error fetching game info:", error);
+  }
+};
+
 
 
 
