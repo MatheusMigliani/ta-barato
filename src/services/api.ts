@@ -8,7 +8,7 @@ const http = axios.create({
 // Função para obter dados, com a chave de API como parâmetro
 export const getDeals = async () => {
   try {
-    const response = await http.get("deals/v2", { params: { key: apiKey } });
+    const response = await http.get("deals/v2", { params: { key: apiKey,country: "BR", } });
     console.log("API Data:", response.data);
     // Acessar a lista de deals diretamente da propriedade 'list' do objeto
     return response.data.list; // Assumindo que a estrutura da resposta está correta

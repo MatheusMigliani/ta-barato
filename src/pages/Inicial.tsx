@@ -6,10 +6,30 @@ import {
   IonPage,
   IonText,
   IonToolbar,
-  IonTitle
+  IonTitle,
+  IonIcon,
+  IonButton,
+  IonItem,
+  IonCol,
+  IonGrid,
+  IonRow,
 } from "@ionic/react";
 import Hamburguerbotao from "../components/hamburguerbotao";
 import { getDeals } from "../services/api";
+import {
+  arrowBackCircleOutline,
+  arrowForwardCircle,
+  caretDownCircle,
+  caretUpCircle,
+  cartOutline,
+  linkOutline,
+  personOutline,
+  pricetag,
+  pricetagOutline,
+  pricetagSharp,
+  pricetags,
+  pricetagsSharp,
+} from "ionicons/icons";
 
 const Inicial: React.FC = () => {
   const [deals, setDeals] = useState([]);
@@ -26,6 +46,10 @@ const Inicial: React.FC = () => {
     fetchDeals();
   }, []);
 
+  const handleLinkClick = (url) => {
+    window.open(url, "_blank"); // Abre a URL em uma nova aba
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -33,15 +57,42 @@ const Inicial: React.FC = () => {
           <Hamburguerbotao />
         </IonToolbar>
       </IonHeader>
-      <IonContent color={"dark"} className="ion-padding">
+      <IonContent color={"success"} className="ion-padding">
         {deals.map((deal) => (
-          <IonCard key={deal.id} color={"success"} className="ion-padding">
-            <IonText color={'dark'}>
-              <h2>{deal.title}</h2>
-              <p>{deal.deal.historyLow.amount}</p>
-              <p>Price: ${deal.deal.price.amount} (Regular: ${deal.deal.regular.amount})</p>
-              <p>Store: {deal.deal.shop.name}</p>
-            </IonText>
+          <IonCard key={deal.id} color={"dark"} className="ion-padding">
+            <IonIcon icon={pricetagsSharp} color="tbpink" size="large" />
+            <IonGrid>
+              <IonRow className="ion-align-items-center">
+                <IonCol size="auto"></IonCol>
+                <IonCol>
+                  <IonText color="tbpink">
+                    <h2 className="ion-text-center">{deal.title}</h2>
+                  </IonText>
+                  <IonText color="tbpink" className="ion-text-center">
+                    <p>{deal.deal.historyLow.amount}</p>
+                    <p>
+                      <IonIcon icon={caretDownCircle} size="large" />$
+                      {deal.deal.price.amount} {deal.deal.price.currency}{" "}
+                      (Normal: ${deal.deal.regular.amount})
+                    </p>
+                    <p>Loja: {deal.deal.shop.name}</p>
+                  </IonText>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol size="12" className="ion-text-right">
+                  <IonButton
+                    expand="block"
+                    fill="solid"
+                    color="tbpink"
+                    onClick={() => handleLinkClick(deal.deal.url)}
+                  >
+                    <IonIcon icon={cartOutline} />
+                    Comprar
+                  </IonButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </IonCard>
         ))}
       </IonContent>
