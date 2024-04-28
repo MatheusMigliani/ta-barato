@@ -13,9 +13,10 @@ import {
   IonCol,
   IonGrid,
   IonRow,
+  IonImg,
 } from "@ionic/react";
-import Hamburguerbotao from "../components/hamburguerbotao";
-import { getDeals } from "../services/api";
+import Hamburguerbotao from "../../components/hamburguerbotao";
+import { getDeals, getGameInfo } from "../../services/api";
 import {
   arrowBackCircleOutline,
   arrowForwardCircle,
@@ -35,19 +36,27 @@ const Inicial: React.FC = () => {
   const [deals, setDeals] = useState([]);
 
   useEffect(() => {
-    const fetchDeals = async () => {
-      const data = await getDeals();
-      console.log("Fetched data:", data);
-      if (data) {
-        setDeals(data);
-      }
+    const fetchAllData = async () => {
+      const dealsData = await getDeals();
+      const gameInfos = await Promise.all(
+        dealsData.map((deal) => getGameInfo(deal.id))
+      );
+      const dealsWithImages = dealsData.map((deal, index) => ({
+        ...deal,
+        image: gameInfos[index], // Store the URL of the game image
+      }));
+      // Filter out deals with types "dlc" and "software"
+      const filteredDeals = dealsWithImages.filter(
+        (deal) => deal.type === "package" || deal.type === "game"
+      );
+      setDeals(filteredDeals);
     };
 
-    fetchDeals();
+    fetchAllData();
   }, []);
 
   const handleLinkClick = (url) => {
-    window.open(url, "_blank"); // Abre a URL em uma nova aba
+    window.open(url, "_blank"); // Open the URL in a new tab
   };
 
   return (
@@ -60,10 +69,18 @@ const Inicial: React.FC = () => {
       <IonContent color={"success"} className="ion-padding">
         {deals.map((deal) => (
           <IonCard key={deal.id} color={"dark"} className="ion-padding">
-            <IonIcon icon={pricetagsSharp} color="tbpink" size="large" />
             <IonGrid>
+              <IonRow>
+                <IonCol size="12">
+                  {deal.image && (
+                    <IonImg
+                      src={deal.image}
+                      alt={`Box art for ${deal.title}`}
+                    />
+                  )}
+                </IonCol>
+              </IonRow>
               <IonRow className="ion-align-items-center">
-                <IonCol size="auto"></IonCol>
                 <IonCol>
                   <IonText color="tbpink">
                     <h2 className="ion-text-center">{deal.title}</h2>
@@ -83,7 +100,7 @@ const Inicial: React.FC = () => {
                 <IonCol size="12" className="ion-text-right">
                   <IonButton
                     expand="block"
-                    fill="solid"
+                    fill="outline"
                     color="tbpink"
                     onClick={() => handleLinkClick(deal.deal.url)}
                   >

@@ -13,7 +13,7 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { Redirect, Route } from "react-router";
-import Inicial from "../Inicial";
+import Inicial from "../Inicial/Inicial";
 import Settings from "../Settings/Settings";
 import Perfil from "../Perfil/Perfil";
 import {
