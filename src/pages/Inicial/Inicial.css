@@ -1,0 +1,82 @@
+/* Inicial.css */
+
+/* Estilo para o card esqueleto */
+.skeleton-card {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para a imagem do card esqueleto */
+  .skeleton-img {
+    width: 100%;
+    height: 200px; /* Altura da imagem do card esqueleto */
+    background-color: #ddd; /* Cor de fundo para simular a imagem */
+  }
+  
+  /* Estilo para o texto do card esqueleto */
+  .skeleton-text {
+    margin: 10px 0;
+    background-color: #ddd; /* Cor de fundo para simular o texto */
+  }
+  
+  /* Animação para os esqueletos */
+  .skeleton-animation {
+    animation: pulse 0.5s infinite;
+    /*Animaçãopulsante*/
+    -webkit-animation: pulse 0.5s infinite;
+}
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+  @keyframes skeleton-animation {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+
+  /* Spinner.css */
+
+/* Cor do spinner */
+.spinner-color {
+    --color: #00ff00; /* Altere para a cor desejada */
+  }
+  
+  /* Tamanho do spinner */
+  .spinner-size {
+    --width: 50px; /* Largura do spinner */
+    --height: 50px; /* Altura do spinner */
+  }
+  
+  /* Personalização do spinner */
+  ion-spinner.circles .spinner-circles {
+    --color: var(--ion-color-tbpurple, #00ff00); /* Cor do spinner */
+    width: var(--width); /* Largura do spinner */
+    height: var(--height); /* Altura do spinner */
+  }
+  
+
+  .success-spinner {
+    color: #ddd;
+  }
+
+
+  .skeleton-animation {
+    animation: skeleton-animation 1.5s infinite;
+  }
+
+  /* Center the spinner vertically and horizontally */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
