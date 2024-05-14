@@ -8,6 +8,7 @@ import {
   IonPage,
   IonRouterOutlet,
   IonSplitPane,
+  IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -24,9 +25,10 @@ import {
   personOutline,
 } from "ionicons/icons";
 
+
 const Menu: React.FC = () => {
   const paths = [
-    { name: "Inicial", url: "/menu/Inicial", icon: homeOutline },
+    { name: "Inicial", url: "/menu/inicial", icon: homeOutline },
     { name: "Perfil", url: "/menu/perfil", icon: personOutline },
     { name: "Carrinho", url: "/menu/carrinho", icon: cartOutline },
     { name: "Configurações", url: "/menu/settings", icon: settingsOutline },
@@ -49,8 +51,8 @@ const Menu: React.FC = () => {
                 routerLink={item.url}
                 routerDirection="none"
               >
-                <IonIcon slot="start" icon={item.icon} />
-                {item.name}
+                <IonIcon slot="start" color="tbpink" icon={item.icon} />
+                <IonText color={"tbpink"}>{item.name}</IonText>
               </IonItem>
             </IonMenuToggle>
           ))}

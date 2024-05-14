@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 
-const Populares: React.FC = () => {
+const Trending: React.FC = () => {
 
     return (
         <IonPage>
@@ -17,4 +17,4 @@ const Populares: React.FC = () => {
     );
 };
 
-export default Populares;
+export default Trending;
