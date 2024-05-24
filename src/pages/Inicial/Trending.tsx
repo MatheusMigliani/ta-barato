@@ -4,6 +4,7 @@ import React from 'react';
 const Trending: React.FC = () => {
 
     return (
+        
         <IonPage>
             <IonHeader>
                 <IonToolbar>
@@ -11,6 +12,7 @@ const Trending: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
+                
                 UI goes here...
             </IonContent>
         </IonPage>

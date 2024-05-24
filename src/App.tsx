@@ -29,7 +29,6 @@ import Menu from "./pages/Menu/Menu";
 import Trending from "./pages/Inicial/Trending";
 import Ofertas from "./pages/Inicial/Ofertas";
 
-
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -44,9 +43,9 @@ const App: React.FC = () => (
           <Login />
         </Route>
         <Route component={Menu} path="/menu" />
-      </IonRouterOutlet>
+        <Route component={Trending} path="/Trending" />    
+        </IonRouterOutlet>
     </IonReactRouter>
-    
   </IonApp>
 );
 
