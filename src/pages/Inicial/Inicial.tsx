@@ -19,20 +19,14 @@ const Inicial: React.FC = () => {
           <IonIcon color="tbpink" icon={pricetagOutline} />
           <IonLabel color="tbpink">Ofertas</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="Trending" href="/Trending">
+        <IonTabButton tab="Trending" href="/menu/Inicial/Trending">
           <IonIcon color="tbpink" icon={flameOutline} />
-          <IonLabel color="tbpink">Populares</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="Trending" href="/Trending">
-          <IonIcon color="tbpink" icon={settingsOutline} />
           <IonLabel color="tbpink">Populares</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>
-        <Route path="/Trending" component={Trending} >
-        <Redirect to="/Trending" />
-        </Route>
-        <Route exact path="/menu/Inicial/Ofertas" component={Ofertas} />
+        <Route path="/menu/Inicial/Trending" component={Trending} exact />
+        <Route path="/menu/Inicial/Ofertas" component={Ofertas} exact />
         <Route exact path="/menu/Inicial">
           <Redirect to="/menu/Inicial/Ofertas" />
         </Route>

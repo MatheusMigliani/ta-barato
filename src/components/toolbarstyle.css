@@ -1,0 +1,8 @@
+ion-searchbar ion-icon {
+color: #b06ed3 !important;
+--placeholder-color: #b06ed3 !important;
+}
+
+ion-searchbar {
+  --placeholder-color: #b06ed3 !important;
+}

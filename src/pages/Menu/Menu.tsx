@@ -25,7 +25,6 @@ import {
   personOutline,
 } from "ionicons/icons";
 
-
 const Menu: React.FC = () => {
   const paths = [
     { name: "Inicial", url: "/menu/inicial", icon: homeOutline },
@@ -59,12 +58,13 @@ const Menu: React.FC = () => {
         </IonContent>
       </IonMenu>
       <IonRouterOutlet id="main">
-        <Route exact path="/menu/Inicial" component={Inicial} />
-        <Route path="/menu/Settings" component={Settings} />
+        <Route
+          path="/menu/Inicial" // <-- "/menu/inicial/*"
+          component={Inicial}
+        />
+        <Route path="/menu/settings" component={Settings} />
         <Route path="/menu/perfil" component={Perfil} />
-        <Route exact path="/menu">
-          <Redirect to="/menu/Inicial" />
-        </Route>
+        <Redirect exact from="/menu" to="/menu/Inicial" />
       </IonRouterOutlet>
     </IonPage>
   );
