@@ -21,6 +21,7 @@ import {
   arrowDownCircleOutline,
   caretDownCircle,
   cartOutline,
+  pricetagOutline,
 } from "ionicons/icons";
 import "./Inicial.css"; // Importando estilos CSS personalizados
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -148,7 +149,7 @@ const Ofertas: React.FC = () => {
             stretch: 0,
             depth: 100,
             modifier: 1,
-            slideShadows: true,
+            slideShadows: false,
           }}
           pagination={true}
           modules={[EffectCoverflow, Pagination]}
@@ -157,6 +158,21 @@ const Ofertas: React.FC = () => {
           {deals.map((deal) => (
             <SwiperSlide key={deal.id}>
               <IonImg src={deal.image} alt={`Box art for ${deal.title}`} />
+              <IonText color="dark">
+                <h2>{deal.title}</h2>
+              </IonText>
+              <IonIcon icon={pricetagOutline} size="large" />$
+                          {deal.deal.price.amount} {deal.deal.price.currency}{" "}
+                          (Normal: ${deal.deal.regular.amount})
+              <IonButton
+                        expand="block"
+                        fill="outline"
+                        color="dark"
+                        onClick={() => handleLinkClick(deal.deal.url)}
+                      >
+                        <IonIcon icon={cartOutline} />
+                        Comprar
+                      </IonButton>
             </SwiperSlide>
           ))}
         </Swiper>

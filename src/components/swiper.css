@@ -9,12 +9,13 @@
     background-position: center;
     background-size: cover;
     width: 300px;
-    height: 200px;
+    height: 300px;
   }
   
   .swiper-slide img {
     display: block;
     width: 100%;
+    
   }
 
   .mySwiper{
@@ -28,9 +29,11 @@
     transform: translate3d(0, 0, 0);
     z-index: 10;
     color: blueviolet;
+    
 }
 
 .swiper-pagination-bullet {
+    size: 50px;
 
     background-color: #b06ed3;
 }
