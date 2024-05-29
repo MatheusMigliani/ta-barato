@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
+import Hamburguerbotao from '../../components/hamburguerbotao';
 
 const Trending: React.FC = () => {
 
@@ -8,7 +9,7 @@ const Trending: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page Title</IonTitle>
+                <Hamburguerbotao />
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">

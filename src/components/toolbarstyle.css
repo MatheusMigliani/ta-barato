@@ -6,3 +6,48 @@ color: #b06ed3 !important;
 ion-searchbar {
   --placeholder-color: #b06ed3 !important;
 }
+
+
+.toolbar {
+  position: relative;
+}
+
+.pesquisa-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.pesquisa {
+  flex: 1;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
+  overflow: hidden;
+  background-color: var(--ion-color-dark);
+  -webkit-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
+  -moz-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
+  -ms-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
+  -o-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
+}
+
+.pesquisa.visible {
+  max-width: 100%;
+  opacity: 1;
+}
+
+.icons-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.icons-container.hidden {
+  display: none;
+}
+
+
+
+

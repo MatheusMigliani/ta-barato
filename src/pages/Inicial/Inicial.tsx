@@ -25,8 +25,8 @@ const Inicial: React.FC = () => {
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>
-        <Route path="/menu/Inicial/Trending" component={Trending} exact />
-        <Route path="/menu/Inicial/Ofertas" component={Ofertas} exact />
+        <Route path="/menu/Inicial/Trending" component={Trending}  />
+        <Route path="/menu/Inicial/Ofertas" component={Ofertas}  />
         <Route exact path="/menu/Inicial">
           <Redirect to="/menu/Inicial/Ofertas" />
         </Route>

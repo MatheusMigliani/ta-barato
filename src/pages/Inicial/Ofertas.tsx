@@ -14,26 +14,28 @@ import {
   IonImg,
   IonRefresher,
   IonRefresherContent,
-  IonSpinner,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
 } from "@ionic/react";
 import Hamburguerbotao from "../../components/hamburguerbotao";
 import { getDeals, getGameInfo } from "../../services/api";
 import {
-  arrowBackCircleOutline,
   arrowDownCircleOutline,
   caretDownCircle,
   cartOutline,
-  contrastOutline,
-  hammerOutline,
 } from "ionicons/icons";
 import "./Inicial.css"; // Importando estilos CSS personalizados
-import { Route, Redirect } from "react-router";
-import Populares from "./Populares";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "../../components/swiper.css"
+
+// Your custom styles for the carousel
+
+import SwiperCore from "swiper";
+import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+
+// Install Swiper modules
+SwiperCore.use([Pagination, Navigation]);
 
 const Ofertas: React.FC = () => {
   const [deals, setDeals] = useState([]);
@@ -99,7 +101,7 @@ const Ofertas: React.FC = () => {
               expand="block"
               fill="outline"
               color="tbpink"
-              onClick={() => handleLinkClick(deal.deal.url)}
+              onClick={() => handleLinkClick(deals.deal.url)}
               className="skeleton-animation"
             >
               <IonIcon icon={cartOutline} />
@@ -118,7 +120,7 @@ const Ofertas: React.FC = () => {
           <Hamburguerbotao />
         </IonToolbar>
       </IonHeader>
-      <IonContent color="success" className="ion-padding" fullscreen>
+      <IonContent color="tertiary" className="ion-padding" fullscreen>
         <div className="spinner-container success-spinner">
           <IonRefresher
             color="success"
@@ -134,6 +136,30 @@ const Ofertas: React.FC = () => {
             />
           </IonRefresher>
         </div>
+
+        <Swiper
+        
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Pagination]}
+          className="mySwiper"
+        >
+          {deals.map((deal) => (
+            <SwiperSlide key={deal.id}>
+              <IonImg src={deal.image} alt={`Box art for ${deal.title}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (
