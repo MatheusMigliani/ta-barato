@@ -1,0 +1,74 @@
+
+
+  .deal-card {
+    /* background: rgba(172, 170, 170, 0.7); */
+    
+    border-radius: 10px;
+    color: white;
+    margin: 16px;
+  }
+  
+  .section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .main-image {
+    width: 600px;
+    height: fit-content;
+    border-radius: 26px;
+    margin-right: 16px;
+    -webkit-border-radius: 26px;
+    -moz-border-radius: 26px;
+    -ms-border-radius: 26px;
+    -o-border-radius: 26px;
+}
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .deal-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .price-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .discount {
+    color: #8FFF00;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .current-price {
+    font-size: 10px;
+    font-weight: bold;
+    ;
+  }
+  
+  .original-price {
+    font-size: 8px;
+    color: rgba(255, 45.69, 45.69, 0.61);
+    text-decoration: line-through;
+  }
+
+  
+  

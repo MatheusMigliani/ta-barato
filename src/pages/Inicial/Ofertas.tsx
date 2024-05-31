@@ -28,7 +28,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import "../../components/swiper.css"
+import "../../components/swiper.css";
 
 // Your custom styles for the carousel
 
@@ -139,7 +139,6 @@ const Ofertas: React.FC = () => {
         </div>
 
         <Swiper
-        
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
@@ -151,7 +150,13 @@ const Ofertas: React.FC = () => {
             modifier: 1,
             slideShadows: false,
           }}
-          pagination={true}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          navigation={true}
+          
+          
           modules={[EffectCoverflow, Pagination]}
           className="mySwiper"
         >
@@ -162,17 +167,17 @@ const Ofertas: React.FC = () => {
                 <h2>{deal.title}</h2>
               </IonText>
               <IonIcon icon={pricetagOutline} size="large" />$
-                          {deal.deal.price.amount} {deal.deal.price.currency}{" "}
-                          (Normal: ${deal.deal.regular.amount})
+              {deal.deal.price.amount} {deal.deal.price.currency} (Normal: $
+              {deal.deal.regular.amount})
               <IonButton
-                        expand="block"
-                        fill="outline"
-                        color="dark"
-                        onClick={() => handleLinkClick(deal.deal.url)}
-                      >
-                        <IonIcon icon={cartOutline} />
-                        Comprar
-                      </IonButton>
+                expand="block"
+                fill="outline"
+                color="dark"
+                onClick={() => handleLinkClick(deal.deal.url)}
+              >
+                <IonIcon icon={cartOutline} />
+                Comprar
+              </IonButton>
             </SwiperSlide>
           ))}
         </Swiper>
