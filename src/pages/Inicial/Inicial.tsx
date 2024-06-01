@@ -12,6 +12,7 @@ import Ofertas from "./Ofertas";
 import Trending from "./Trending";
 
 const Inicial: React.FC = () => {
+  
   return (
     <IonTabs>
       <IonTabBar color={"dark"} slot="bottom">

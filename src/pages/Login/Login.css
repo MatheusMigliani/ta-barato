@@ -15,6 +15,48 @@
   --ion-color-shade: var(--ion-color-tbwhite-shade);
   --ion-color-tint: var(--ion-color-tbwhite-tint);
 }
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Certifique-se de que as partículas fiquem no fundo */
+}
+
+.background {
+  position: relative;
+  overflow: hidden;
+}
+
+.particles-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* Ensure particles are behind other content */
+}
+
+.login-container {
+  position: relative;
+  z-index: 1; /* Ensure login form is above the particles */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Optional: Add a semi-transparent background to the form for better readability */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  opacity: 0.9;
+}
+
+.logoimg {
+  margin-bottom: 20px;
+}
+.mySwiper {
+  position: relative;
+  z-index: 1; /* Certifique-se de que o Swiper fique acima das partículas */
+}
 
 .ion-color-tbpurple {
   --ion-color-base: var(--ion-color-tbpurple);
@@ -70,5 +112,3 @@ body {
   --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
   --box-shadow: 0 2px 8px rgba(0, 140, 255, 0.2); /* Sombra suave ao passar o mouse */
 }
-
-

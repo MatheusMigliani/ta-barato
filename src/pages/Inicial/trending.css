@@ -1,74 +1,77 @@
+.deal-card {
+  /* background: rgba(172, 170, 170, 0.7); */
 
-
-  .deal-card {
-    /* background: rgba(172, 170, 170, 0.7); */
-    
-    border-radius: 10px;
-    color: white;
-    margin: 16px;
-  }
-  
-  .section-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    
-  }
-  
-  .card-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .main-image {
-    width: 600px;
-    height: fit-content;
-    border-radius: 26px;
-    margin-right: 16px;
-    -webkit-border-radius: 26px;
-    -moz-border-radius: 26px;
-    -ms-border-radius: 26px;
-    -o-border-radius: 26px;
+  border-radius: 10px;
+  color: white;
+  margin: 16px;
 }
-  
-  .details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .deal-title {
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .price-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .discount {
-    color: #8FFF00;
-    font-size: 22px;
-    font-weight: bold;
-  }
-  
-  .current-price {
-    font-size: 20px;
-    font-weight: bold;
-    ;
-  }
-  
-  .original-price {
-    font-size: 21px;
-    color: rgba(255, 45.69, 45.69, 0.61);
-    text-decoration: line-through;
-  }
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Certifique-se de que as partículas fiquem no fundo */
+}
 
-  
-  
+.mySwiper {
+  position: relative;
+  z-index: 1; /* Certifique-se de que o Swiper fique acima das partículas */
+}
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-image {
+  width: 600px;
+  height: fit-content;
+  border-radius: 26px;
+  margin-right: 16px;
+  -webkit-border-radius: 26px;
+  -moz-border-radius: 26px;
+  -ms-border-radius: 26px;
+  -o-border-radius: 26px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.deal-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.price-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.discount {
+  color: #8fff00;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.current-price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.original-price {
+  font-size: 21px;
+  color: rgba(255, 45.69, 45.69, 0.61);
+  text-decoration: line-through;
+}

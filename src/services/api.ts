@@ -5,72 +5,115 @@ const http = axios.create({
   baseURL: "https://api.isthereanydeal.com/",
 });
 
-// Função para obter dados, com a chave de API como parâmetro
 export const getDeals = async () => {
   try {
     const response = await http.get("deals/v2", {
-      params: { key: apiKey, country: "BR", shops:'61,35,50', mature:true, limit:30, },
+      params: {
+        key: apiKey,
+        country: "BR",
+        shops: "61,35,50",
+        mature: true,
+        limit: 30,
+      },
     });
-    /* console.log("API Data:", response.data);  */
-    // Acessar a lista de deals diretamente da propriedade 'list' do objeto
-    return response.data.list; // Assumindo que a estrutura da resposta está correta
+    return response.data.list;
   } catch (error) {
     console.error("Error fetching deals:", error);
   }
 };
-// Função para obter informações detalhadas de um jogo usando seu ID
-export const getGameInfo = async (gameId:any) => {
+
+export const getGameInfo = async (gameId) => {
   try {
     const response = await http.get("games/info/v2", {
       params: {
         key: apiKey,
         id: gameId,
-         // Usando o ID do jogo como parâmetro requerido
       },
     });
-    /* console.log("Game Info Data:", response.data); */
-    // Supondo que a imagem do jogo esteja disponível no campo 'boxart'
     return response.data.assets.banner600;
   } catch (error) {
     console.error("Error fetching game info:", error);
   }
 };
 
-
-export const getGameBoxart = async (gameId:any) => {
+export const getGameBoxart = async (gameId) => {
   try {
     const response = await http.get("games/info/v2", {
       params: {
         key: apiKey,
         id: gameId,
-         // Usando o ID do jogo como parâmetro requerido
       },
     });
-    console.log("Game Box Art:", response.data.assets.boxart);
-    // Supondo que a imagem do jogo esteja disponível no campo 'boxart'
     return response.data.assets.boxart;
   } catch (error) {
     console.error("Error fetching game info:", error);
   }
 };
 
-export const MostPopularGame = async (gameId:any) => {
+export const getGamePrices = async (gameId) => {
   try {
-    const response = await http.get("games/info/v2", {
+    const response = await http.get("games/prices/v2", {
       params: {
         key: apiKey,
-        id: gameId,
-         // Usando o ID do jogo como parâmetro requerido
+        ids: gameId,
       },
     });
-    /* console.log("Game Info Data:", response.data); */
-    // Supondo que a imagem do jogo esteja disponível no campo 'boxart'
-    return response.data.assets.banner600;
+    const prices = response.data.data[gameId].list[0];
+    console.log("Prices for gameId:", gameId, prices);
+    return {
+      amount: prices.price_new,
+      cut: prices.price_cut,
+      regular: prices.price_old,
+      historyLow: prices.price_cut, // Ajuste conforme necessário se você tiver uma fonte separada para o menor preço histórico
+    };
   } catch (error) {
-    console.error("Error fetching game info:", error);
+    console.error("Error fetching game prices:", error);
   }
 };
 
+export const getMostPopularGames = async () => {
+  try {
+    const response = await http.get("stats/most-popular/v1", {
+      params: {
+        key: apiKey,
+        country: "BR",
+        limit: 30,
+      },
+    });
+    console.log("popular:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching most popular games:", error);
+  }
+};
 
+export const getMostCollectedGames = async () => {
+  try {
+    const response = await http.get("stats/most-collected/v1", {
+      params: {
+        key: apiKey,
+        country: "BR",
+        limit: 30,
+      },
+    });
+    console.log("collected:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching most collected games:", error);
+  }
+};
 
-
+export const getMostWaitlistedGames = async () => {
+  try {
+    const response = await http.get("stats/most-waitlisted/v1", {
+      params: {
+        key: apiKey,
+        limit: 30,
+      },
+    });
+    console.log("waitlisted:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching most waitlisted games:", error);
+  }
+};
