@@ -191,18 +191,18 @@ const Trending: React.FC = () => {
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
         >
-          {deals.map((deal) => (
-            <SwiperSlide key={deal.id}>
+          {mostPopularGames.map((game) => (
+            <SwiperSlide key={game.id}>
               <div
                 className="swiper-slide"
                 style={{
-                  backgroundImage: `url(${deal.boxart})`,
+                  backgroundImage: `url(${game.boxart})`,
                   backgroundSize: "cover", // Maintain aspect ratio
                   backgroundPosition: "center", // Center the image
                 }}
               >
                 <div className="slide-text">
-                  <h1>{deal.title}</h1>
+                  <h1>{game.title}</h1>
                   <br />
                   <p>Clássicos & Atemporais</p>
                 </div>
