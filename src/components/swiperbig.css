@@ -1,0 +1,61 @@
+/* Unique styles for the large image Swiper */
+.large-image-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: contain; /* Mantém a proporção da imagem */
+    background-position: center;
+    position: relative;
+    width: 100%;
+    height: 60vh; /* Ajuste a altura para ser menor */
+    margin-top: 0; /* Remove qualquer margem superior */
+    padding-top: 0; /* Remove qualquer padding superior */
+  }
+  
+  /* Ajuste adicional para centralizar a imagem e definir uma altura máxima */
+  .large-image-swiper .swiper-slide::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* Mantém a proporção de 16:9 */
+  }
+  
+  .large-image-swiper .slide-text {
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-family: 'RetroFont', sans-serif; /* Fonte personalizada para estilo retrô */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .large-image-swiper .slide-text h1 {
+    font-size: 2em; /* Diminui o tamanho do texto */
+    margin: 0;
+  }
+  
+  .large-image-swiper .slide-text p {
+    font-size: 1.5em; /* Diminui o tamanho do texto */
+    margin: 0;
+  }
+  
+  /* Swiper navigation buttons */
+  .large-image-swiper .swiper-button-prev,
+  .large-image-swiper .swiper-button-next {
+    color: white !important;
+    width: 27px !important; /* Ajusta a largura para um melhor encaixe */
+    height: 44px !important; /* Ajusta a altura para um melhor encaixe */
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    z-index: 10 !important;
+  }
+  
+  .large-image-swiper .swiper-button-prev {
+    background-image: url('/path/to/prev-arrow.png') !important; /* Atualize com o caminho correto */
+  }
+  
+  .large-image-swiper .swiper-button-next {
+    background-image: url('/path/to/next-arrow.png') !important; /* Atualize com o caminho correto */
+  }
+  

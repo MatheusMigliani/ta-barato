@@ -24,7 +24,7 @@ import {
   pricetagOutline,
 } from "ionicons/icons";
 import "./Inicial.css"; // Importando estilos CSS personalizados
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -33,10 +33,14 @@ import "../../components/swiper.css";
 // Your custom styles for the carousel
 
 import SwiperCore from "swiper";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import {
+  EffectCoverflow,
+  Pagination,
+  Autoplay,
+} from "swiper/modules";
 
 // Install Swiper modules
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination, Autoplay]);
 
 const Ofertas: React.FC = () => {
   const [deals, setDeals] = useState([]);
@@ -155,9 +159,10 @@ const Ofertas: React.FC = () => {
             dynamicBullets: true,
           }}
           navigation={true}
-          
-          
-          modules={[EffectCoverflow, Pagination]}
+          autoplay={{
+            delay: 2000,
+          }}
+          modules={[EffectCoverflow, Pagination, Autoplay]}
           className="mySwiper"
         >
           {deals.map((deal) => (
