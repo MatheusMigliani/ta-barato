@@ -9,7 +9,7 @@
   }
   
   .section-title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 16px;
     
@@ -41,7 +41,7 @@
   }
   
   .deal-title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 8px;
   }
@@ -54,18 +54,18 @@
   
   .discount {
     color: #8FFF00;
-    font-size: 12px;
+    font-size: 22px;
     font-weight: bold;
   }
   
   .current-price {
-    font-size: 10px;
+    font-size: 20px;
     font-weight: bold;
     ;
   }
   
   .original-price {
-    font-size: 8px;
+    font-size: 21px;
     color: rgba(255, 45.69, 45.69, 0.61);
     text-decoration: line-through;
   }

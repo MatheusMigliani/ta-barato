@@ -30,7 +30,13 @@ import { getDeals, getGameBoxart, getGameInfo } from "../../services/api";
 import {
   arrowDownCircleOutline,
   cartOutline,
+  filterOutline,
+  flame,
+  flameOutline,
+  flameSharp,
+  pricetag,
   pricetagOutline,
+  pricetagSharp,
 } from "ionicons/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -93,7 +99,7 @@ const Trending: React.FC = () => {
         <Swiper
           className="large-image-swiper" // Unique class name for this Swiper
           autoplay={{
-            delay: 2000,
+            delay: 1800,
             disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
           }}
           centeredSlides={true}
@@ -125,22 +131,21 @@ const Trending: React.FC = () => {
 
         <Swiper
           autoplay={{
-            delay: 2000,
+            delay: 1500,
             disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
           }}
           centeredSlides={true}
           spaceBetween={30}
           slidesPerView={"auto"}
           pagination={{ clickable: true, dynamicBullets: true }}
-          navigation={true}
-          modules={[Autoplay, Pagination, Navigation]}
+          modules={[Autoplay, Pagination]}
         >
           {deals.map((deal) => (
             <SwiperSlide key={deal.id}>
               <IonCard color={"tbhoneydew"} className="deal-card">
                 <IonCardContent>
                   <IonText color="primary" className="section-title">
-                    OFERTAS ESPECIAIS
+                    🔥POPULARES🔥
                   </IonText>
                   <div className="card-content">
                     <IonImg
@@ -185,22 +190,21 @@ const Trending: React.FC = () => {
 
         <Swiper
           autoplay={{
-            delay: 2000,
+            delay: 1400,
             disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
           }}
           centeredSlides={true}
           spaceBetween={30}
           slidesPerView={"auto"}
           pagination={{ clickable: true, dynamicBullets: true }}
-          navigation={true}
-          modules={[Autoplay, Pagination, Navigation]}
+          modules={[Autoplay, Pagination]}
         >
           {deals.map((deal) => (
             <SwiperSlide key={deal.id}>
               <IonCard color={"tbhoneydew"} className="deal-card">
                 <IonCardContent>
                   <IonText color="primary" className="section-title">
-                    OFERTAS ESPECIAIS
+                    🤩 DESTAQUES RECOMENDADOS
                   </IonText>
                   <div className="card-content">
                     <IonImg
@@ -210,6 +214,7 @@ const Trending: React.FC = () => {
                     />
                     <div className="details">
                       <IonText color="primary" className="deal-title">
+                        <IonIcon color="tertiary" icon={pricetagOutline} />
                         {deal.title}
                       </IonText>
                       <div className="price-section">
@@ -242,6 +247,69 @@ const Trending: React.FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        {/*  SWIPER WISHLIS */}
+
+        {/*  SWIPER DEALS */}
+        <Swiper
+          autoplay={{
+            delay: 1400,
+            disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
+          }}
+          centeredSlides={true}
+          spaceBetween={30}
+          slidesPerView={"auto"}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          modules={[Autoplay, Pagination]}
+        >
+          {deals.map((deal) => (
+            <SwiperSlide key={deal.id}>
+              <IonCard color={"tbhoneydew"} className="deal-card">
+                <IonCardContent>
+                  <IonText color="primary" className="section-title">
+                    💲OFERTAS ESPECIAIS💲
+                  </IonText>
+                  <div className="card-content">
+                    <IonImg
+                      className="main-image"
+                      src={deal.image}
+                      alt={`Main image for ${deal.title}`}
+                    />
+                    <div className="details">
+                      <IonText color="primary" className="deal-title">
+                        <IonIcon color="tertiary" icon={pricetagOutline} />
+                        {deal.title}
+                      </IonText>
+                      <div className="price-section">
+                        <IonText className="discount">
+                          -{deal.deal.cut}%
+                        </IonText>
+                        <IonText color="tborchidpink" className="current-price">
+                          R$ {deal.deal.price.amount}
+                        </IonText>
+                        <IonText className="original-price">
+                          R$ {deal.deal.regular.amount}
+                        </IonText>
+                        <IonText className="best-price">
+                          Melhor R$ {deal.deal.historyLow.amount}
+                        </IonText>
+                        <IonButton
+                          expand="block"
+                          fill="outline"
+                          color="primary"
+                          onClick={() => handleLinkClick(deal.deal.url)}
+                        >
+                          <IonIcon icon={cartOutline} />
+                          Comprar
+                        </IonButton>
+                      </div>
+                    </div>
+                  </div>
+                </IonCardContent>
+              </IonCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/*  SWIPER DEALS */}
       </IonContent>
     </IonPage>
   );
