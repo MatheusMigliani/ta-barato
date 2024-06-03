@@ -13,16 +13,10 @@ import {
 import React, { useEffect, useState } from "react";
 import Hamburguerbotao from "../../components/hamburguerbotao";
 import "./trending.css";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "../../components/swiper.css";
-import "../../components/swiperbig.css";
+import { cartOutline, pricetagOutline } from "ionicons/icons";
 
 // Your custom styles for the carousel
 
-import SwiperCore from "swiper";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import {
   getDeals,
   getGameBoxart,
@@ -32,12 +26,16 @@ import {
   getMostCollectedGames,
   getMostWaitlistedGames,
 } from "../../services/api";
-import {
-  cartOutline,
-  pricetagOutline,
-} from "ionicons/icons";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
+import SwiperCore from "swiper";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "../../components/swiper.css";
+import "../../components/swiperbig.css";
 
 // Install Swiper modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
@@ -204,7 +202,9 @@ const Trending: React.FC = () => {
                 <div className="slide-text">
                   <h1>{game.title}</h1>
                   <br />
-                  <p>Clássicos & Atemporais</p>
+                  <p>
+                    <IonText color={"primary"}>Clássicos & Atemporais</IonText>
+                  </p>
                 </div>
               </div>
             </SwiperSlide>
@@ -227,7 +227,7 @@ const Trending: React.FC = () => {
               <IonCard color={"tbhoneydew"} className="deal-card">
                 <IonCardContent>
                   <IonText color="primary" className="section-title">
-                    🔥POPULARES🔥
+                    🔥Melhores Ofertas🔥
                   </IonText>
                   <div className="card-content">
                     <IonImg

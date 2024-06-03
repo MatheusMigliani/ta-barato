@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   IonButton,
   IonCard,
@@ -18,12 +19,16 @@ import {
 import "./Login.css";
 import { logoGoogle } from "ionicons/icons";
 import { logInOutline } from "ionicons/icons";
-import ParticlesBg from "particles-bg";
+import { auth } from "../../services/FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login: React.FC = () => {
   const [present, dismiss] = useIonLoading();
 
   const router = useIonRouter();
+  /*  firebase */
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const DoLogin = async (event: any) => {
     event.preventDefault();
@@ -35,11 +40,13 @@ const Login: React.FC = () => {
     console.log("DoLogin");
   };
 
+
+   /*  firebase */
+
   return (
     <IonPage className="">
       <IonContent className="background ion-padding" color={"dark"} fullscreen>
-          
-        <div className="login-container ion-text-center">
+        <div className="login-container ion-text-center ion-align-items-center ion-align-self-center ion ">
           <img
             src="assets/TA BARATO no name.svg"
             width={119}
@@ -53,6 +60,7 @@ const Login: React.FC = () => {
               className="login-container ion-text-center"
               fill="outline"
               label="Email"
+              id="email"
               labelPlacement="floating"
               placeholder="E-mail..."
               type="email"
@@ -61,6 +69,7 @@ const Login: React.FC = () => {
               className="ion-margin-top"
               fill="outline"
               label="Senha"
+              id="senha"
               labelPlacement="floating"
               placeholder="Senha..."
               type="password"

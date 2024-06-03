@@ -44,6 +44,7 @@ export const getGameBoxart = async (gameId) => {
         id: gameId,
       },
     });
+    console.log("boxarts :", response.data);
     return response.data.assets.boxart;
   } catch (error) {
     console.error("Error fetching game info:", error);
@@ -52,7 +53,7 @@ export const getGameBoxart = async (gameId) => {
 
 export const getGamePrices = async (gameId) => {
   try {
-    const response = await http.get("games/prices/v2", {
+    const response = await http.post("games/prices/v2", {
       params: {
         key: apiKey,
         ids: gameId,

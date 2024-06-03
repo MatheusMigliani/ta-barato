@@ -1,0 +1,84 @@
+.profile-header {
+  text-align: center;
+  padding: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 186, 201, 1) 0%,
+    rgba(199, 108, 133, 1) 38%,
+    rgba(176, 110, 211, 1) 100%
+  );
+  border-radius: 10px;
+  position: relative;
+}
+
+.profile-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 3.5px solid rgb(95, 6, 144);
+  margin: 0 auto;
+}
+
+.user-name {
+  font-size: 16px;
+  color: white;
+  margin-top: 10px;
+}
+
+.user-rating ion-icon {
+  color: #f5c620;
+}
+
+.list-title {
+  font-size: 15px;
+  color: white;
+  text-align: center;
+  margin: 20px 0;
+  border-bottom: solid 0.2px;
+  border-left: solid 0.2px;
+  border-right: solid 0.2px;
+  border-top: solid 2px;
+  border-width: 0.9px;
+  border-radius: 16px;
+}
+
+.game-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-list img {
+  width: 88px;
+  height: 85px;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.swiper-slide-content img {
+  width: 100px; /* Adjust as needed */
+  height: auto;
+  border-radius: 10px;
+}
+
+.swiper-slide-content p {
+  color: white;
+  margin-top: 10px;
+}
