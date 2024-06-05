@@ -28,8 +28,17 @@ const Register: React.FC = () => {
   const [present, dismiss] = useIonLoading();
   const router = useIonRouter();
 
-  const DoRegister = async (event: any) => {
+  const DoRegister = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
+    console.log("Email:", email);
+    console.log("Senha:", password);
+    console.log("Confirmação de senha:", confirmPassword);
+
     if (password !== confirmPassword) {
       console.error("As senhas não coincidem");
       return;
@@ -106,9 +115,11 @@ const Register: React.FC = () => {
             labelPlacement="floating"
             placeholder="Senha..."
             type="password"
-            value={password}
-            onIonChange={(e) => setPassword(e.detail.value!)}
+            name="password"
+            value={password} // Adicionando value ao campo de senha
+            onIonChange={(e) => setPassword(e.detail.value!)} // Atualizando o estado password
           />
+
           <IonInput
             className="ion-margin-top"
             fill="outline"
@@ -116,8 +127,9 @@ const Register: React.FC = () => {
             labelPlacement="floating"
             placeholder="Senha..."
             type="password"
-            value={confirmPassword}
-            onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+            name="confirmPassword"
+            value={confirmPassword} // Adicionando value ao campo de confirmação de senha
+            onIonChange={(e) => setConfirmPassword(e.detail.value!)} // Atualizando o estado confirmPassword
           />
           <IonInput
             className="ion-margin-top"
@@ -249,7 +261,7 @@ const Register: React.FC = () => {
         >
           Retornar
         </IonButton>
-        
+
         <div className="ion-text-center ion-justify-content-center ion-margin-top">
           <IonText className="" color={"tbpink"}>
             Ao clicar em registrar, você aceita nossos Termos de serviço e
