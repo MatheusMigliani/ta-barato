@@ -161,7 +161,7 @@ const Trending: React.FC = () => {
     fetchData();
     setTimeout(() => {
       event.detail.complete();
-    }, 2000); // Simula um atraso de 2 segundos para demonstração
+    }, 1000); // Simula um atraso de 2 segundos para demonstração
   };
 
   const handleLinkClick = (url: string) => {

@@ -10,13 +10,12 @@ import {
   IonToast,
   useIonRouter,
 } from "@ionic/react";
-import { logoGoogle, logInOutline } from "ionicons/icons";
+import { logoGoogle } from "ionicons/icons";
 import { auth } from "../../services/FirebaseConfig";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  signOut,
 } from "firebase/auth";
 import "./Login.css";
 
@@ -35,7 +34,7 @@ const Login: React.FC = () => {
     const password = event.target.password.value;
 
     console.log("Email:", email);
-    console.log("Senha:", password); // Obtendo o valor do campo de senha diretamente do evento
+    console.log("Senha:", password);
 
     present("Fazendo Login...");
 
@@ -51,7 +50,6 @@ const Login: React.FC = () => {
         "Erro ao fazer login. Verifique suas credenciais e tente novamente."
       );
     }
-    console.log("DoLogin");
   };
 
   const DoGoogleLogin = async () => {
@@ -61,11 +59,11 @@ const Login: React.FC = () => {
     try {
       await signInWithPopup(auth, provider);
       dismiss();
-      showToastMessage("Login realizado com o google com sucesso.");
       router.push("/menu", "root");
     } catch (error) {
       console.error("Erro ao fazer login com Google:", error);
       dismiss();
+      showToastMessage("Erro ao fazer login com o Google.");
     }
   };
 
@@ -103,7 +101,7 @@ const Login: React.FC = () => {
               labelPlacement="floating"
               placeholder="Senha..."
               type="password"
-              name="password" // Adicionando o nome ao campo de senha
+              name="password"
             />
             <IonButton
               color={"tbpink"}

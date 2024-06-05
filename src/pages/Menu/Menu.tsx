@@ -30,6 +30,7 @@ import {
 } from "ionicons/icons";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../services/FirebaseConfig";
+import Trending from "../Inicial/Trending";
 
 const Menu: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -110,9 +111,13 @@ const Menu: React.FC = () => {
           path="/menu/Inicial" // <-- "/menu/inicial/*"
           component={Inicial}
         />
+        <Route
+          path="/menu/trending" // <-- "/menu/inicial/*"
+          component={Trending}
+        />
         <Route path="/menu/settings" component={Settings} />
         <Route path="/menu/perfil" component={Perfil} />
-        <Redirect exact from="/menu" to="/menu/Inicial" />
+        <Redirect exact from="/menu" to="/menu/trending" />
       </IonRouterOutlet>
     </IonPage>
   );
