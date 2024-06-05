@@ -1,52 +1,83 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IonButton,
-  IonCard,
   IonContent,
-  IonFooter,
-  IonHeader,
-  IonIcon,
-  IonInput,
-  IonItem,
   IonPage,
   IonText,
-  IonTitle,
-  IonToolbar,
+  IonInput,
+  IonIcon,
   useIonLoading,
+  IonToast,
   useIonRouter,
 } from "@ionic/react";
-import "./Login.css";
-import { logoGoogle } from "ionicons/icons";
-import { logInOutline } from "ionicons/icons";
+import { logoGoogle, logInOutline } from "ionicons/icons";
 import { auth } from "../../services/FirebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from "firebase/auth";
+import "./Login.css";
 
 const Login: React.FC = () => {
-  const [present, dismiss] = useIonLoading();
-
-  const router = useIonRouter();
-  /*  firebase */
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useIonRouter();
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const [present, dismiss] = useIonLoading();
 
   const DoLogin = async (event: any) => {
     event.preventDefault();
-    await present("Fazendo Login...");
-    setTimeout(async () => {
+
+    const password = event.target.password.value;
+
+    console.log("Email:", email);
+    console.log("Senha:", password); // Obtendo o valor do campo de senha diretamente do evento
+
+    present("Fazendo Login...");
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       dismiss();
+      showToastMessage("Login realizado com sucesso.");
       router.push("/menu", "root");
-    }, 200);
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      dismiss();
+      showToastMessage(
+        "Erro ao fazer login. Verifique suas credenciais e tente novamente."
+      );
+    }
     console.log("DoLogin");
   };
 
+  const DoGoogleLogin = async () => {
+    present("Fazendo Login com Google...");
+    const provider = new GoogleAuthProvider();
 
-   /*  firebase */
+    try {
+      await signInWithPopup(auth, provider);
+      dismiss();
+      showToastMessage("Login realizado com o google com sucesso.");
+      router.push("/menu", "root");
+    } catch (error) {
+      console.error("Erro ao fazer login com Google:", error);
+      dismiss();
+    }
+  };
+
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
 
   return (
     <IonPage className="">
       <IonContent className="background ion-padding" color={"dark"} fullscreen>
-        <div className="login-container ion-text-center ion-align-items-center ion-align-self-center ion ">
+        <div className="login-container ion-text-center ion-align-items-center ion-align-self-center ion">
           <img
             src="assets/TA BARATO no name.svg"
             width={119}
@@ -54,25 +85,25 @@ const Login: React.FC = () => {
             alt="logo"
             className="logoimg"
           />
-          
           <form onSubmit={DoLogin}>
             <IonInput
               className="login-container ion-text-center"
               fill="outline"
               label="Email"
-              id="email"
               labelPlacement="floating"
               placeholder="E-mail..."
               type="email"
+              value={email}
+              onIonChange={(e) => setEmail(e.detail.value!)}
             />
             <IonInput
               className="ion-margin-top"
               fill="outline"
               label="Senha"
-              id="senha"
               labelPlacement="floating"
               placeholder="Senha..."
               type="password"
+              name="password" // Adicionando o nome ao campo de senha
             />
             <IonButton
               color={"tbpink"}
@@ -81,7 +112,6 @@ const Login: React.FC = () => {
               className="ion-margin-bottom ion-margin-top"
             >
               <IonText color={"dark"}>Entrar</IonText>
-              <IonIcon icon={logInOutline} color="dark" slot="end"></IonIcon>
             </IonButton>
           </form>
           <IonButton
@@ -96,7 +126,12 @@ const Login: React.FC = () => {
           <IonText color={"tbpink"} className="ion-margin-bottom">
             Ou continue com o
           </IonText>
-          <IonButton color={"tbpink"} expand="block" fill="outline">
+          <IonButton
+            color={"tbpink"}
+            expand="block"
+            fill="outline"
+            onClick={DoGoogleLogin}
+          >
             <IonIcon slot="start" icon={logoGoogle} />
             Google
           </IonButton>
@@ -105,6 +140,13 @@ const Login: React.FC = () => {
             Privacidade.
           </IonText>
         </div>
+
+        <IonToast
+          isOpen={showToast}
+          onDidDismiss={() => setShowToast(false)}
+          message={toastMessage}
+          duration={3000}
+        />
       </IonContent>
     </IonPage>
   );

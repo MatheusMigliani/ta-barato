@@ -20,7 +20,7 @@ export const getDeals = async () => {
   } catch (error) {
     console.error("Error fetching deals:", error);
   }
-};
+};  
 
 export const getGameInfo = async (gameId) => {
   try {

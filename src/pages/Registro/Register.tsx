@@ -1,9 +1,9 @@
+// src/pages/Register.js
+import React, { useState } from "react";
 import {
   IonButton,
-  IonCard,
   IonContent,
   IonFooter,
-  IonHeader,
   IonIcon,
   IonInput,
   IonPage,
@@ -11,31 +11,54 @@ import {
   IonRadioGroup,
   IonText,
   IonTitle,
-  IonToolbar,
+  IonToast,
   useIonLoading,
   useIonRouter,
 } from "@ionic/react";
-import { checkboxOutline,  logoGoogle } from "ionicons/icons";
-import React from "react";
+import { checkboxOutline, logoGoogle } from "ionicons/icons";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/FirebaseConfig";
 import "./Register.css";
 
 const Register: React.FC = () => {
-  const [present, dismiss] = useIonLoading();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [present, dismiss] = useIonLoading();
   const router = useIonRouter();
 
   const DoRegister = async (event: any) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      console.error("As senhas não coincidem");
+      return;
+    }
+
     await present("Finalizando Registro...");
-    setTimeout(async () => {
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
       dismiss();
+      showToastMessage("Registro realizado com sucesso.");
       router.push("/menu", "root");
-    }, 2);
-    console.log("DoRegister");
+    } catch (error) {
+      console.error("Erro ao registrar:", error);
+      showToastMessage("Erro ao registrar.");
+      dismiss();
+    }
+  };
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
   };
 
   return (
-    <IonPage className="">
+    <IonPage>
       <IonContent className="background ion-padding" color={"dark"} fullscreen>
         <div className="ion-padding ion-text-center">
           <img
@@ -46,7 +69,7 @@ const Register: React.FC = () => {
             className="logoimg"
           />
         </div>
-        <div className="ion-padding ion-text-center ">
+        <div className="ion-padding ion-text-center">
           <IonText color="tbpurple">Registro</IonText>
         </div>
         <form onSubmit={DoRegister}>
@@ -73,8 +96,9 @@ const Register: React.FC = () => {
             labelPlacement="floating"
             placeholder="E-mail..."
             type="email"
+            value={email}
+            onIonChange={(e) => setEmail(e.detail.value!)}
           />
-
           <IonInput
             className="ion-margin-top"
             fill="outline"
@@ -82,6 +106,8 @@ const Register: React.FC = () => {
             labelPlacement="floating"
             placeholder="Senha..."
             type="password"
+            value={password}
+            onIonChange={(e) => setPassword(e.detail.value!)}
           />
           <IonInput
             className="ion-margin-top"
@@ -90,6 +116,8 @@ const Register: React.FC = () => {
             labelPlacement="floating"
             placeholder="Senha..."
             type="password"
+            value={confirmPassword}
+            onIonChange={(e) => setConfirmPassword(e.detail.value!)}
           />
           <IonInput
             className="ion-margin-top"
@@ -209,7 +237,6 @@ const Register: React.FC = () => {
             className="ion-margin-bottom ion-margin-top"
           >
             <IonText color={"dark"}>Registrar</IonText>
-            
             <IonIcon icon={checkboxOutline} color="dark" slot="end"></IonIcon>
           </IonButton>
         </form>
@@ -222,25 +249,20 @@ const Register: React.FC = () => {
         >
           Retornar
         </IonButton>
-        <div className="ion-text-center ion-justify-content-center ion-margin-bottom">
-          <IonText
-            color={"tbpink"}
-            className="ion-text-center ion-justify-content-center"
-          >
-            Ou continue com o
-          </IonText>
-        </div>
-
-        <IonButton color={"tbpink"} expand="block" fill="outline">
-          <IonIcon slot="start" icon={logoGoogle} />
-          Google
-        </IonButton>
+        
         <div className="ion-text-center ion-justify-content-center ion-margin-top">
           <IonText className="" color={"tbpink"}>
-            Ao clicar em continuar, você aceita nossos Termos de serviço e
+            Ao clicar em registrar, você aceita nossos Termos de serviço e
             Privacidade.
           </IonText>
         </div>
+
+        <IonToast
+          isOpen={showToast}
+          onDidDismiss={() => setShowToast(false)}
+          message={toastMessage}
+          duration={3000}
+        />
       </IonContent>
       <IonFooter color="tbpink">@M1gliani</IonFooter>
     </IonPage>

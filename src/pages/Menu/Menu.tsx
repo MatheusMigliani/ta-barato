@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -11,8 +12,10 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonToast,
+  useIonRouter,
 } from "@ionic/react";
-import React from "react";
 import { Redirect, Route } from "react-router";
 import Inicial from "../Inicial/Inicial";
 import Settings from "../Settings/Settings";
@@ -23,15 +26,40 @@ import {
   settingsOutline,
   homeOutline,
   personOutline,
+  logOutOutline,
 } from "ionicons/icons";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../services/FirebaseConfig";
 
 const Menu: React.FC = () => {
+  const [user] = useAuthState(auth);
+  const [showLogout, setShowLogout] = useState(false);
+  const [logoutSuccess, setLogoutSuccess] = useState(false);
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [showLogoutToast, setShowLogoutToast] = useState(false);
+  const router = useIonRouter();
+
   const paths = [
     { name: "Inicial", url: "/menu/inicial", icon: homeOutline },
     { name: "Perfil", url: "/menu/perfil", icon: personOutline },
     { name: "Carrinho", url: "/menu/carrinho", icon: cartOutline },
     { name: "Configurações", url: "/menu/settings", icon: settingsOutline },
   ];
+
+  const handleLogout = async () => {
+    if (!logoutSuccess) {
+      router.push("/", "root");
+      // Verifica se o logout já foi realizado
+      setShowLogoutToast(true); // Exibe o toast de logout
+      await auth.signOut();
+      setLogoutSuccess(true);
+    }
+  };
 
   return (
     <IonPage color={"dark"}>
@@ -55,6 +83,26 @@ const Menu: React.FC = () => {
               </IonItem>
             </IonMenuToggle>
           ))}
+          {user && (
+            <IonItem color={"dark"}>
+              <IonButton
+                fill="clear"
+                expand="block"
+                color="danger"
+                onClick={() => handleLogout()}
+              >
+                <IonIcon slot="start" color="tbpink" icon={logOutOutline} />
+                <IonText color={"tbpink"}>Sair</IonText>
+              </IonButton>
+            </IonItem>
+          )}
+
+          <IonToast
+            isOpen={showLogoutToast}
+            onDidDismiss={() => setShowLogoutToast(false)}
+            message="Você foi deslogado com sucesso."
+            duration={2000}
+          />
         </IonContent>
       </IonMenu>
       <IonRouterOutlet id="main">
