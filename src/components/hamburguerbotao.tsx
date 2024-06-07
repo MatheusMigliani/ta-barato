@@ -19,7 +19,7 @@ import {
 } from "ionicons/icons";
 import "./toolbarstyle.css";
 import { useDarkMode } from "./darkmodecontext";
-import "./darkmode.css"
+import "./darkmode.css";
 
 const Hamburguerbotao: React.FC = () => {
   const [searchVisible, setSearchVisible] = useState(false);
@@ -66,28 +66,6 @@ const Hamburguerbotao: React.FC = () => {
               color={"tborchidpink"}
               slot="icon-only"
               icon={searchOutline}
-            ></IonIcon>
-          </IonButton>
-          <IonButton slot="end" color={"tbhoneydew"} href="/menu/Inicial">
-            <IonIcon
-              color={"tborchidpink"}
-              slot="icon-only"
-              icon={homeOutline}
-            ></IonIcon>
-          </IonButton>
-
-          <IonButton slot="end" color={"tbhoneydew"} href="/menu/perfil">
-            <IonIcon
-              color={"tborchidpink"}
-              slot="icon-only"
-              icon={personOutline}
-            ></IonIcon>
-          </IonButton>
-          <IonButton slot="end" color={"tbhoneydew"} href="/menu/settings">
-            <IonIcon
-              color={"tborchidpink"}
-              slot="icon-only"
-              icon={settingsOutline}
             ></IonIcon>
           </IonButton>
         </div>
