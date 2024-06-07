@@ -15,6 +15,9 @@ import {
   IonButton,
   IonToast,
   useIonRouter,
+  IonRow,
+  IonToggle,
+  IonLabel,
 } from "@ionic/react";
 import { Redirect, Route } from "react-router";
 import Inicial from "../Inicial/Inicial";
@@ -27,6 +30,8 @@ import {
   homeOutline,
   personOutline,
   logOutOutline,
+  moonOutline,
+  moon,
 } from "ionicons/icons";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../services/FirebaseConfig";
@@ -63,40 +68,43 @@ const Menu: React.FC = () => {
   };
 
   return (
-    <IonPage color={"dark"}>
-      <IonContent color={"dark"}></IonContent>
-      <IonMenu color="tbpurple" contentId="main">
-        <IonHeader color="tbpink">
-          <IonToolbar color={"dark"}>
-            <IonTitle color="tbpink">Menu</IonTitle>
+    <IonPage color={"tbhoneydew"}>
+      <IonContent color={"tbhoneydew"}></IonContent>
+      <IonMenu color="tborchidpink" contentId="main">
+        <IonHeader color="tborchidpink">
+          <IonToolbar color={"tbhoneydew"}>
+            <IonTitle color="tborchidpink">Menu</IonTitle>
+
+            {user && (
+              <IonButton
+                fill="clear"
+                color={"tborchidpink"}
+                slot="end"
+                onClick={() => handleLogout()}
+              >
+                <IonIcon
+                  slot="start"
+                  color="tborchidpink"
+                  icon={logOutOutline}
+                />
+                <IonText color={"tborchidpink"}>Sair</IonText>
+              </IonButton>
+            )}
           </IonToolbar>
         </IonHeader>
-        <IonContent color="dark" className="ion-padding">
+        <IonContent color="tbhoneydew" className="ion-padding">
           {paths.map((item, index) => (
             <IonMenuToggle key={index}>
               <IonItem
-                color={"dark"}
+                color={"tbhoneydew"}
                 routerLink={item.url}
                 routerDirection="none"
               >
-                <IonIcon slot="start" color="tbpink" icon={item.icon} />
-                <IonText color={"tbpink"}>{item.name}</IonText>
+                <IonIcon slot="start" color="tborchidpink" icon={item.icon} />
+                <IonText color={"tborchidpink"}>{item.name}</IonText>
               </IonItem>
             </IonMenuToggle>
           ))}
-          {user && (
-            <IonItem color={"dark"}>
-              <IonButton
-                fill="clear"
-                expand="block"
-                color="danger"
-                onClick={() => handleLogout()}
-              >
-                <IonIcon slot="start" color="tbpink" icon={logOutOutline} />
-                <IonText color={"tbpink"}>Sair</IonText>
-              </IonButton>
-            </IonItem>
-          )}
 
           <IonToast
             isOpen={showLogoutToast}
@@ -117,7 +125,7 @@ const Menu: React.FC = () => {
         />
         <Route path="/menu/settings" component={Settings} />
         <Route path="/menu/perfil" component={Perfil} />
-        <Redirect exact from="/menu" to="/menu/trending" />
+        <Redirect exact from="/menu" to="/menu/inicial" />
       </IonRouterOutlet>
     </IonPage>
   );

@@ -37,12 +37,11 @@ http://ionicframework.com/docs/theming/ */
   }
 
   --ion-color-tbhoneydew: #f1faee;
-	--ion-color-tbhoneydew-rgb: 241,250,238;
-	--ion-color-tbhoneydew-contrast: #000000;
-	--ion-color-tbhoneydew-contrast-rgb: 0,0,0;
-	--ion-color-tbhoneydew-shade: #d4dcd1;
-	--ion-color-tbhoneydew-tint: #f2fbf0;
-
+  --ion-color-tbhoneydew-rgb: 241, 250, 238;
+  --ion-color-tbhoneydew-contrast: #000000;
+  --ion-color-tbhoneydew-contrast-rgb: 0, 0, 0;
+  --ion-color-tbhoneydew-shade: #d4dcd1;
+  --ion-color-tbhoneydew-tint: #f2fbf0;
 
   .ion-color-tbhoneydew {
     --ion-color-base: var(--ion-color-tbhoneydew);
@@ -54,11 +53,11 @@ http://ionicframework.com/docs/theming/ */
   }
 
   --ion-color-tborchidpink: #f2bac9;
-	--ion-color-tborchidpink-rgb: 242,186,201;
-	--ion-color-tborchidpink-contrast: #000000;
-	--ion-color-tborchidpink-contrast-rgb: 0,0,0;
-	--ion-color-tborchidpink-shade: #d5a4b1;
-	--ion-color-tborchidpink-tint: #f3c1ce;
+  --ion-color-tborchidpink-rgb: 242, 186, 201;
+  --ion-color-tborchidpink-contrast: #000000;
+  --ion-color-tborchidpink-contrast-rgb: 0, 0, 0;
+  --ion-color-tborchidpink-shade: #d5a4b1;
+  --ion-color-tborchidpink-tint: #f3c1ce;
 
   .ion-color-tborchidpink {
     --ion-color-base: var(--ion-color-tborchidpink);
@@ -70,11 +69,11 @@ http://ionicframework.com/docs/theming/ */
   }
 
   --ion-color-tbgunmetal: #092327;
-	--ion-color-tbgunmetal-rgb: 9,35,39;
-	--ion-color-tbgunmetal-contrast: #ffffff;
-	--ion-color-tbgunmetal-contrast-rgb: 255,255,255;
-	--ion-color-tbgunmetal-shade: #081f22;
-	--ion-color-tbgunmetal-tint: #22393d;
+  --ion-color-tbgunmetal-rgb: 9, 35, 39;
+  --ion-color-tbgunmetal-contrast: #ffffff;
+  --ion-color-tbgunmetal-contrast-rgb: 255, 255, 255;
+  --ion-color-tbgunmetal-shade: #081f22;
+  --ion-color-tbgunmetal-tint: #22393d;
 
   .ion-color-tbgunmetal {
     --ion-color-base: var(--ion-color-tbgunmetal);
@@ -391,4 +390,16 @@ html {
   /* For more information on dynamic font scaling, visit the documentation: 
   https://ionicframework.com/docs/layout/dynamic-font-scaling */
   --ion-dynamic-font: var(--ion-default-dynamic-font);
+}
+
+.dark {
+  --ion-color-primary: #222428;
+  --ion-color-secondary: #0cd1e8;
+  --ion-color-tertiary: #7044ff;
+  --ion-color-light: #f4f5f8;
+  --ion-color-dark: #f0fff0;
+  --ion-color-tborchidpink: #7044ff;
+  --ion-color-tbhoneydew: #1d3557;
+  --ion-color-tbwarning: #ffc107;
+  background-color: #000000 !important;
 }

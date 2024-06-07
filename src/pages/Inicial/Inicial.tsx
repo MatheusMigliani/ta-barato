@@ -10,19 +10,25 @@ import { flameOutline, personOutline, pricetagOutline, settingsOutline } from "i
 import { Route, Redirect } from "react-router";
 import Ofertas from "./Ofertas";
 import Trending from "./Trending";
+import "../../pages/Perfil/Perfil"
+import "../../components/tabs.css"
 
 const Inicial: React.FC = () => {
   
   return (
     <IonTabs>
-      <IonTabBar color={"dark"} slot="bottom">
+      <IonTabBar color={"tbhoneydew"}  slot="bottom" className="custom-tab-bar">
         <IonTabButton tab="Ofertas" href="/menu/Inicial/Ofertas">
-          <IonIcon color="tbpink" icon={pricetagOutline} />
-          <IonLabel color="tbpink">Ofertas</IonLabel>
+          <IonIcon color="tborchidpink" icon={pricetagOutline} />
+          <IonLabel color="tborchidpink">Ofertas</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="Trending" href="/menu/Inicial/Trending">
-          <IonIcon color="tbpink" icon={flameOutline} />
-          <IonLabel color="tbpink">Populares</IonLabel>
+        <IonTabButton tab="Perfil" href="/menu/perfil">
+          <IonIcon color="tborchidpink" icon={personOutline} />
+          <IonLabel color="tborchidpink">Perfil</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="Configurações" href="/menu/settings">
+          <IonIcon color="tborchidpink" icon={settingsOutline} />
+          <IonLabel color="tborchidpink">Configurações</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>

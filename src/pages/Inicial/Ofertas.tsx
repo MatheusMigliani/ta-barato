@@ -1,49 +1,58 @@
-import React, { useEffect, useState } from "react";
 import {
+  IonButton,
   IonCard,
+  IonCardContent,
   IonContent,
   IonHeader,
-  IonPage,
-  IonText,
-  IonToolbar,
   IonIcon,
-  IonButton,
-  IonCol,
-  IonGrid,
-  IonRow,
   IonImg,
+  IonPage,
   IonRefresher,
   IonRefresherContent,
+  IonText,
+  IonToolbar,
 } from "@ionic/react";
+import React, { useEffect, useState } from "react";
 import Hamburguerbotao from "../../components/hamburguerbotao";
-import { getDeals, getGameInfo } from "../../services/api";
+import "./trending.css";
 import {
   arrowDownCircleOutline,
-  caretDownCircle,
   cartOutline,
   pricetagOutline,
 } from "ionicons/icons";
-import "./Inicial.css"; // Importando estilos CSS personalizados
-import { Swiper, SwiperSlide} from "swiper/react";
+import "../../components/darkmode.css";
+
+// Your custom styles for the carousel
+
+import {
+  getDeals,
+  getGameBoxart,
+  getGameInfo,
+  getGamePrices,
+  getMostPopularGames,
+  getMostCollectedGames,
+  getMostWaitlistedGames,
+} from "../../services/api";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import SwiperCore from "swiper";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "../../components/swiper.css";
-
-// Your custom styles for the carousel
-
-import SwiperCore from "swiper";
-import {
-  EffectCoverflow,
-  Pagination,
-  Autoplay,
-} from "swiper/modules";
+import "../../components/swiperbig.css";
+import "../../components/body.css";
 
 // Install Swiper modules
-SwiperCore.use([Pagination, Autoplay]);
+SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const Ofertas: React.FC = () => {
   const [deals, setDeals] = useState([]);
+  const [mostPopularGames, setMostPopularGames] = useState([]);
+  const [mostCollectedGames, setMostCollectedGames] = useState([]);
+  const [mostWaitlistedGames, setMostWaitlistedGames] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -52,19 +61,107 @@ const Ofertas: React.FC = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
+
     const dealsData = await getDeals();
+    console.log("dealsData:", dealsData);
+
     const gameInfos = await Promise.all(
       dealsData.map((deal) => getGameInfo(deal.id))
     );
+
+    const boxartInfos = await Promise.all(
+      dealsData.map((deal) => getGameBoxart(deal.id))
+    );
+
+    const priceInfos = await Promise.all(
+      dealsData.map((deal) => getGamePrices(deal.id))
+    );
+
     const dealsWithImages = dealsData.map((deal, index) => ({
       ...deal,
-      image: gameInfos[index], // Armazena a URL da imagem do jogo
+      image: gameInfos[index],
+      boxart: boxartInfos[index],
+      price: priceInfos[index],
     }));
-    // Filtra os deals com tipos "dlc" e "software"
+
     const filteredDeals = dealsWithImages.filter(
-      (deal) => deal.type === "package" || deal.type === "game"
+      (deal) =>
+        deal.type === "package" || deal.type === "game" || deal.type === "dlc"
     );
     setDeals(filteredDeals);
+
+    // Fetch most popular games
+    const mostPopularGamesData = await getMostPopularGames();
+    console.log("mostPopularGamesData:", mostPopularGamesData);
+
+    const mostPopularGameInfos = await Promise.all(
+      mostPopularGamesData.map((game) => getGameInfo(game.id))
+    );
+    const mostPopularBoxartInfos = await Promise.all(
+      mostPopularGamesData.map((game) => getGameBoxart(game.id))
+    );
+    const mostPopularPriceInfos = await Promise.all(
+      mostPopularGamesData.map((game) => getGamePrices(game.id))
+    );
+
+    const mostPopularGamesWithImages = mostPopularGamesData.map(
+      (game, index) => ({
+        ...game,
+        image: mostPopularGameInfos[index],
+        boxart: mostPopularBoxartInfos[index],
+        price: mostPopularPriceInfos[index],
+      })
+    );
+    setMostPopularGames(mostPopularGamesWithImages);
+
+    // Fetch most collected games
+    const mostCollectedGamesData = await getMostCollectedGames();
+    console.log("mostCollectedGamesData:", mostCollectedGamesData);
+
+    const mostCollectedGameInfos = await Promise.all(
+      mostCollectedGamesData.map((game) => getGameInfo(game.id))
+    );
+    const mostCollectedBoxartInfos = await Promise.all(
+      mostCollectedGamesData.map((game) => getGameBoxart(game.id))
+    );
+    const mostCollectedPriceInfos = await Promise.all(
+      mostCollectedGamesData.map((game) => getGamePrices(game.id))
+    );
+
+    const mostCollectedGamesWithImages = mostCollectedGamesData.map(
+      (game, index) => ({
+        ...game,
+        image: mostCollectedGameInfos[index],
+        boxart: mostCollectedBoxartInfos[index],
+        price: mostCollectedPriceInfos[index],
+      })
+    );
+    setMostCollectedGames(mostCollectedGamesWithImages);
+
+    // Fetch most waitlisted games
+    const mostWaitlistedGamesData = await getMostWaitlistedGames();
+    console.log("mostWaitlistedGamesData:", mostWaitlistedGamesData);
+
+    const mostWaitlistedGameInfos = await Promise.all(
+      mostWaitlistedGamesData.map((game) => getGameInfo(game.id))
+    );
+    const mostWaitlistedBoxartInfos = await Promise.all(
+      mostWaitlistedGamesData.map((game) => getGameBoxart(game.id))
+    );
+    const mostWaitlistedPriceInfos = await Promise.all(
+      mostWaitlistedGamesData.map((game) => getGamePrices(game.id))
+    );
+
+    const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map(
+      (game, index) => ({
+        ...game,
+        image: mostWaitlistedGameInfos[index],
+        boxart: mostWaitlistedBoxartInfos[index],
+        price: mostWaitlistedPriceInfos[index],
+      })
+    );
+    setMostWaitlistedGames(mostWaitlistedGamesWithImages);
+
     setIsLoading(false);
   };
 
@@ -72,61 +169,22 @@ const Ofertas: React.FC = () => {
     fetchData();
     setTimeout(() => {
       event.detail.complete();
-    }, 2000); // Simula um atraso de 2 segundos para demonstração
+    }, 1000); // Simula um atraso de 2 segundos para demonstração
   };
 
   const handleLinkClick = (url: string) => {
     window.open(url, "_blank"); // Abre a URL em uma nova aba
   };
 
-  // Função para renderizar um card esqueleto
-  const renderSkeletonCard = () => (
-    <IonCard color="dark" className="ion-padding skeleton-card">
-      <IonGrid>
-        <IonRow>
-          <IonCol size="12">
-            <div className="skeleton-img skeleton-animation"></div>
-          </IonCol>
-        </IonRow>
-        <IonRow className="ion-align-items-center">
-          <IonCol>
-            <IonText color="tbpink">
-              <h2 className="ion-text-center skeleton-text skeleton-animation"></h2>
-            </IonText>
-            <IonText color="tbpink" className="ion-text-center">
-              <p className="skeleton-text skeleton-animation"></p>
-              <p className="skeleton-text skeleton-animation"></p>
-              <p className="skeleton-text skeleton-animation"></p>
-            </IonText>
-          </IonCol>
-        </IonRow>
-        <IonRow>
-          <IonCol size="12" className="ion-text-right">
-            <IonButton
-              expand="block"
-              fill="outline"
-              color="tbpink"
-              onClick={() => handleLinkClick(deals.deal.url)}
-              className="skeleton-animation"
-            >
-              <IonIcon icon={cartOutline} />
-              Comprar
-            </IonButton>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </IonCard>
-  );
-
   return (
-    <IonPage color="success">
+    <IonPage>
       <IonHeader>
         <IonToolbar>
           <Hamburguerbotao />
         </IonToolbar>
       </IonHeader>
-      <IonContent color="tertiary" className="ion-padding" fullscreen>
-        <div className="spinner-container success-spinner">
+      <IonContent color={"tborchidpink"}>
+        <div className="spinner-container success-spinner ion-padding">
           <IonRefresher
             color="success"
             slot="fixed"
@@ -141,103 +199,280 @@ const Ofertas: React.FC = () => {
             />
           </IonRefresher>
         </div>
-
         <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: false,
-          }}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          navigation={true}
+          className="large-image-swiper" // Unique class name for this Swiper
           autoplay={{
-            delay: 2000,
+            delay: 1800,
+            disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
           }}
-          modules={[EffectCoverflow, Pagination, Autoplay]}
-          className="mySwiper"
+          centeredSlides={true}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          navigation={true}
+          modules={[Autoplay, Pagination, Navigation]}
         >
-          {deals.map((deal) => (
-            <SwiperSlide key={deal.id}>
-              <IonImg src={deal.image} alt={`Box art for ${deal.title}`} />
-              <IonText color="dark">
-                <h2>{deal.title}</h2>
-              </IonText>
-              <IonIcon icon={pricetagOutline} size="large" />$
-              {deal.deal.price.amount} {deal.deal.price.currency} (Normal: $
-              {deal.deal.regular.amount})
-              <IonButton
-                expand="block"
-                fill="outline"
-                color="dark"
-                onClick={() => handleLinkClick(deal.deal.url)}
+          {mostPopularGames.map((game) => (
+            <SwiperSlide key={game.id}>
+              <div
+                className="swiper-slide"
+                style={{
+                  backgroundImage: `url(${game.boxart})`,
+                  backgroundSize: "cover", // Maintain aspect ratio
+                  backgroundPosition: "center", // Center the image
+                }}
               >
-                <IonIcon icon={cartOutline} />
-                Comprar
-              </IonButton>
+                <div className="slide-text">
+                  <h1>{game.title}</h1>
+                  <br />
+                  <p>
+                    <IonText>Clássicos & Atemporais</IonText>
+                  </p>
+                </div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {isLoading
-          ? Array.from({ length: 10 }).map((_, index) => (
-              <React.Fragment key={index}>
-                {renderSkeletonCard()}
-              </React.Fragment>
-            ))
-          : deals.map((deal) => (
-              <IonCard key={deal.id} color="dark" className="ion-padding">
-                <IonGrid>
-                  <IonRow>
-                    <IonCol size="12">
-                      {deal.image && (
-                        <IonImg
-                          src={deal.image}
-                          alt={`Box art for ${deal.title}`}
-                        />
-                      )}
-                    </IonCol>
-                  </IonRow>
-                  <IonRow className="ion-align-items-center">
-                    <IonCol>
-                      <IonText color="tbpink">
-                        <h2 className="ion-text-center">{deal.title}</h2>
+        <Swiper
+          autoplay={{
+            delay: 1500,
+            disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
+          }}
+          centeredSlides={true}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          modules={[Autoplay, Pagination]}
+        >
+          {deals.map((deal) => (
+            <SwiperSlide key={deal.id}>
+              <IonCard color={"tbhoneydew"} className="deal-card">
+                <IonCardContent>
+                  <IonText color="primary" className="section-title">
+                    🔥MELHORES OFERTAS🔥
+                  </IonText>
+                  <div className="card-content">
+                    <IonImg
+                      className="main-image"
+                      src={deal.image}
+                      alt={`Main image for ${deal.title}`}
+                    />
+                    <div className="details">
+                      <IonText color="primary" className="deal-title">
+                        {deal.title}
                       </IonText>
-                      <IonText color="tbpink" className="ion-text-center">
-                        <p>{deal.type}</p>
-                        <p>
-                          <IonIcon icon={caretDownCircle} size="large" />$
-                          {deal.deal.price.amount} {deal.deal.price.currency}{" "}
-                          (Normal: ${deal.deal.regular.amount})
-                        </p>
-                        <p>Loja: {deal.deal.shop.name}</p>
-                      </IonText>
-                    </IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCol size="12" className="ion-text-right">
-                      <IonButton
-                        expand="block"
-                        fill="outline"
-                        color="tbpink"
-                        onClick={() => handleLinkClick(deal.deal.url)}
-                      >
-                        <IonIcon icon={cartOutline} />
-                        Comprar
-                      </IonButton>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
+                      <div className="price-section">
+                        <IonText className="discount">
+                          -{deal.price?.cut}%
+                        </IonText>
+                        <IonText color="tborchidpink" className="current-price">
+                          R$ {deal.price?.amount}
+                        </IonText>
+                        <IonText className="original-price">
+                          R$ {deal.price?.regular}
+                        </IonText>
+                        <IonText className="best-price">
+                          Melhor R$ {deal.price?.historyLow}
+                        </IonText>
+                        <IonButton
+                          expand="block"
+                          fill="outline"
+                          color="warning"
+                          onClick={() => handleLinkClick(deal.deal.url)}
+                        >
+                          <IonIcon icon={cartOutline} />
+                          Comprar
+                        </IonButton>
+                      </div>
+                    </div>
+                  </div>
+                </IonCardContent>
               </IonCard>
-            ))}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/*  SWIPER MOST POPULAR */}
+        <Swiper
+          autoplay={{
+            delay: 1400,
+            disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
+          }}
+          centeredSlides={true}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          modules={[Autoplay, Pagination]}
+        >
+          {mostPopularGames.map((game) => (
+            <SwiperSlide key={game.id}>
+              <IonCard color={"tbhoneydew"} className="deal-card">
+                <IonCardContent>
+                  <IonText color="primary" className="section-title">
+                    ⭐ MAIS POPULARES ⭐
+                  </IonText>
+                  <div className="card-content">
+                    <IonImg
+                      className="main-image"
+                      src={game.image}
+                      alt={`Boxart for ${game.title}`}
+                    />
+                    <div className="details">
+                      <IonText color="primary" className="deal-title">
+                        {game.title}
+                      </IonText>
+                      <div className="price-section">
+                        <IonText className="discount">
+                          -{game.price?.cut}%
+                        </IonText>
+                        <IonText color="tborchidpink" className="current-price">
+                          R$ {game.price?.amount}
+                        </IonText>
+                        <IonText className="original-price">
+                          R$ {game.price?.regular}
+                        </IonText>
+                        <IonText className="best-price">
+                          Melhor R$ {game.price?.historyLow}
+                        </IonText>
+                        <IonButton
+                          expand="block"
+                          fill="outline"
+                          color="warning"
+                          onClick={() => handleLinkClick(game.urls.game)}
+                        >
+                          <IonIcon icon={cartOutline} />
+                          Comprar
+                        </IonButton>
+                      </div>
+                    </div>
+                  </div>
+                </IonCardContent>
+              </IonCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/*  SWIPER MOST COLLECTED */}
+        <Swiper
+          autoplay={{
+            delay: 1400,
+            disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
+          }}
+          centeredSlides={true}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          modules={[Autoplay, Pagination]}
+        >
+          {mostCollectedGames.map((game) => (
+            <SwiperSlide key={game.id}>
+              <IonCard color={"tbhoneydew"} className="deal-card">
+                <IonCardContent>
+                  <IonText color="primary" className="section-title">
+                    📚 MAIS COLETADOS 📚
+                  </IonText>
+                  <div className="card-content">
+                    <IonImg
+                      className="main-image"
+                      src={game.image}
+                      alt={`Boxart for ${game.title}`}
+                    />
+                    <div className="details">
+                      <IonText color="primary" className="deal-title">
+                        {game.title}
+                      </IonText>
+                      <div className="price-section">
+                        <IonText className="discount">
+                          -{game.price?.cut}%
+                        </IonText>
+                        <IonText color="tborchidpink" className="current-price">
+                          R$ {game.price?.amount}
+                        </IonText>
+                        <IonText className="original-price">
+                          R$ {game.price?.regular}
+                        </IonText>
+                        <IonText className="best-price">
+                          Melhor R$ {game.price?.historyLow}
+                        </IonText>
+                        <IonButton
+                          expand="block"
+                          fill="outline"
+                          color="warning"
+                          onClick={() => handleLinkClick(game.urls.game)}
+                        >
+                          <IonIcon icon={cartOutline} />
+                          Comprar
+                        </IonButton>
+                      </div>
+                    </div>
+                  </div>
+                </IonCardContent>
+              </IonCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/*  SWIPER MOST WAITLISTED */}
+        <Swiper
+          autoplay={{
+            delay: 1400,
+            disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
+          }}
+          centeredSlides={true}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          modules={[Autoplay, Pagination]}
+        >
+          {mostWaitlistedGames.map((game) => (
+            <SwiperSlide key={game.id}>
+              <IonCard color={"tbhoneydew"} className="deal-card">
+                <IonCardContent>
+                  <IonText color="primary" className="section-title">
+                    🎁 MAIS <br />
+                    AGUARDADOS 🎁
+                  </IonText>
+                  <div className="card-content">
+                    <IonImg
+                      className="main-image"
+                      src={game.image}
+                      alt={`Boxart for ${game.title}`}
+                    />
+                    <div className="details">
+                      <IonText color="primary" className="deal-title">
+                        {game.title}
+                      </IonText>
+                      <div className="price-section">
+                        <IonText className="discount">
+                          -{game.price?.cut}%
+                        </IonText>
+                        <IonText color="tborchidpink" className="current-price">
+                          R$ {game.price?.amount}
+                        </IonText>
+                        <IonText className="original-price">
+                          R$ {game.price?.regular}
+                        </IonText>
+                        <IonText className="best-price">
+                          Melhor R$ {game.price?.historyLow}
+                        </IonText>
+                        <IonButton
+                          expand="block"
+                          fill="outline"
+                          color="warning"
+                          onClick={() => handleLinkClick(game.urls.game)}
+                        >
+                          <IonIcon icon={cartOutline} />
+                          Comprar
+                        </IonButton>
+                      </div>
+                    </div>
+                  </div>
+                </IonCardContent>
+              </IonCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </IonContent>
     </IonPage>
   );

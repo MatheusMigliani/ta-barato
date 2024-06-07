@@ -5,6 +5,7 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
+  IonInput,
   IonPage,
   IonRow,
   IonToolbar,
@@ -22,16 +23,22 @@ import {
 } from "../../services/api";
 import "./perfil.css";
 
+import "../../components/tabs.css"
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import "swiper/css/pagination";
 import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
+import { auth } from "../../services/FirebaseConfig"; // Importe o contexto de autenticação do Firebase
+import { useAuth } from "../Login/Login";
+
 // Install Swiper modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const Tab1perfil: React.FC = () => {
+ // Obtenha o usuário autenticado do contexto de autenticação
+
   const [starRating, setStarRating] = useState([
     false,
     false,
@@ -43,6 +50,7 @@ const Tab1perfil: React.FC = () => {
   const [mostCollectedGames, setMostCollectedGames] = useState([]);
   const [mostWaitlistedGames, setMostWaitlistedGames] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+ // Use a foto de perfil do usuário autenticado como imagem inicial
 
   useEffect(() => {
     fetchData();
@@ -58,7 +66,6 @@ const Tab1perfil: React.FC = () => {
     const mostPopularBoxartInfos = await Promise.all(
       mostPopularGamesData.map((game) => getGameBoxart(game.id))
     );
-   
 
     const mostPopularGamesWithImages = mostPopularGamesData.map(
       (game, index) => ({
@@ -76,7 +83,6 @@ const Tab1perfil: React.FC = () => {
     const mostCollectedBoxartInfos = await Promise.all(
       mostCollectedGamesData.map((game) => getGameBoxart(game.id))
     );
-   
 
     const mostCollectedGamesWithImages = mostCollectedGamesData.map(
       (game, index) => ({
@@ -94,7 +100,6 @@ const Tab1perfil: React.FC = () => {
     const mostWaitlistedBoxartInfos = await Promise.all(
       mostWaitlistedGamesData.map((game) => getGameBoxart(game.id))
     );
-
 
     const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map(
       (game, index) => ({
@@ -115,6 +120,8 @@ const Tab1perfil: React.FC = () => {
     setStarRating(newRating);
   };
 
+ 
+
   return (
     <IonPage>
       <IonHeader>
@@ -127,12 +134,14 @@ const Tab1perfil: React.FC = () => {
           <IonRow>
             <IonCol className="profile-header" size="12">
               <IonAvatar className="profile-avatar">
-                <img
-                  alt="Silhouette of a person's head"
-                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                />
+                
+            
               </IonAvatar>
-              <div className="user-name">USUARIO</div>
+              <input
+                type="file"
+                accept="image/*"
+              />
+              <div className="user-name">"USUARIO"</div>
               <div className="user-rating">
                 {starRating.map((filled, index) => (
                   <IonIcon
@@ -145,12 +154,12 @@ const Tab1perfil: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol size="12">
+            <IonCol size="12" className="colunapop">
               <div className="list-title">MAIS POPULARES</div>
               <Swiper
                 autoplay={{
                   delay: 1400,
-                  disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
+                  disableOnInteraction: false, // Ensure autoplay does not stop on user
                 }}
                 centeredSlides={true}
                 spaceBetween={30}
@@ -170,7 +179,7 @@ const Tab1perfil: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol size="12">
+            <IonCol size="12" className="colunapop">
               <div className="list-title">MAIS COLETADOS</div>
               <Swiper
                 autoplay={{
@@ -195,7 +204,7 @@ const Tab1perfil: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol size="12">
+            <IonCol size="12" className="colunapop">
               <div className="list-title">MAIS AGUARDADOS</div>
               <Swiper
                 autoplay={{

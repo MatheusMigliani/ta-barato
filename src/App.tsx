@@ -1,5 +1,10 @@
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact, useIonRouter } from "@ionic/react";
+import {
+  IonApp,
+  IonRouterOutlet,
+  setupIonicReact,
+  useIonRouter,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Registro/Register";
@@ -31,32 +36,28 @@ import Ofertas from "./pages/Inicial/Ofertas";
 import { getRedirectResult } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./services/FirebaseConfig";
-
+import { DarkModeProvider } from "./components/darkmodecontext";
 
 setupIonicReact();
 
 const App: React.FC = () => (
-
-
-  
-
-  
-  
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route component={Register} path="/register" exact />
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route component={Menu} path="/menu" />
-        <Route component={Trending} path="/Trending" />    
+  <DarkModeProvider>
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route component={Register} path="/register" exact />
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route component={Menu} path="/menu" />
+          <Route component={Trending} path="/Trending" />
         </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+      </IonReactRouter>
+    </IonApp>
+  </DarkModeProvider>
 );
 
 export default App;

@@ -5,8 +5,9 @@ import {
   IonMenuButton,
   IonSearchbar,
   IonIcon,
+  IonLabel,
+  IonToggle,
 } from "@ionic/react";
-import "./ExploreContainer.css";
 import {
   searchOutline,
   trashBin,
@@ -14,27 +15,30 @@ import {
   homeOutline,
   cartOutline,
   settingsOutline,
+  moonOutline,
 } from "ionicons/icons";
 import "./toolbarstyle.css";
+import { useDarkMode } from "./darkmodecontext";
+import "./darkmode.css"
 
 const Hamburguerbotao: React.FC = () => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const { darkMode, setDarkMode } = useDarkMode();
 
   const toggleSearchbar = () => {
     setSearchVisible(!searchVisible);
   };
 
   return (
-    <IonToolbar color={"dark"}>
+    <IonToolbar color={"tbhoneydew"}>
       <IonButton color={"primary"} slot="start" size="small" fill="clear">
-        <IonMenuButton color={"tbpink"} />
-      </IonButton>
-
+        <IonMenuButton color={"tborchidpink"} />
+      </IonButton>{" "}
       <div className="pesquisa-container">
         <IonSearchbar
           className={`pesquisa ${searchVisible ? "visible" : ""}`}
-          color={"dark"}
+          color={"tbhoneydew"}
           showClearButton="focus"
           animated={true}
           clearIcon={null}
@@ -44,40 +48,57 @@ const Hamburguerbotao: React.FC = () => {
           onIonChange={(e) => setSearchText(e.detail.value!)}
         ></IonSearchbar>
 
+        <div className="toggle-icon">
+          <IonToggle
+            color="tborchidpink"
+            slot="end"
+            name="darkmode"
+            id="darkmode"
+            checked={darkMode}
+            onIonChange={(e) => setDarkMode(e.detail.checked)}
+          />
+
+          <IonIcon icon={moonOutline} color="tborchidpink" />
+        </div>
         <div className={`icons-container ${searchVisible ? "hidden" : ""}`}>
-          <IonButton slot="end" color={"dark"} onClick={toggleSearchbar}>
+          <IonButton slot="end" color={"tbhoneydew"} onClick={toggleSearchbar}>
             <IonIcon
-              color={"tbpink"}
+              color={"tborchidpink"}
               slot="icon-only"
               icon={searchOutline}
             ></IonIcon>
           </IonButton>
-          <IonButton slot="end" color={"dark"} href="/menu/Inicial">
-            <IonIcon color={"tbpink"} slot="icon-only" icon={homeOutline}></IonIcon>
-          </IonButton>
-          <IonButton slot="end" color={"dark"} href="/menu/perfil">
-            <IonIcon color={"tbpink"} slot="icon-only" icon={cartOutline}></IonIcon>
-          </IonButton>
-          <IonButton slot="end" color={"dark"} href="/menu/perfil">
+          <IonButton slot="end" color={"tbhoneydew"} href="/menu/Inicial">
             <IonIcon
-              color={"tbpink"}
+              color={"tborchidpink"}
+              slot="icon-only"
+              icon={homeOutline}
+            ></IonIcon>
+          </IonButton>
+
+          <IonButton slot="end" color={"tbhoneydew"} href="/menu/perfil">
+            <IonIcon
+              color={"tborchidpink"}
               slot="icon-only"
               icon={personOutline}
             ></IonIcon>
           </IonButton>
-          <IonButton slot="end" color={"dark"} href="/menu/settings">
+          <IonButton slot="end" color={"tbhoneydew"} href="/menu/settings">
             <IonIcon
-              color={"tbpink"}
+              color={"tborchidpink"}
               slot="icon-only"
               icon={settingsOutline}
             ></IonIcon>
           </IonButton>
         </div>
-
         {searchVisible && (
-          <IonButton className="close-button" color={"dark"} onClick={toggleSearchbar}>
+          <IonButton
+            className="close-button"
+            color={"tbhoneydew"}
+            onClick={toggleSearchbar}
+          >
             <IonIcon
-              color={"tbpink"}
+              color={"tborchidpink"}
               slot="icon-only"
               icon={trashBin}
             ></IonIcon>

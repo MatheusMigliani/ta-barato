@@ -7,13 +7,15 @@ import {
   IonIcon,
   IonImg,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonText,
   IonToolbar,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import Hamburguerbotao from "../../components/hamburguerbotao";
 import "./trending.css";
-import { cartOutline, pricetagOutline } from "ionicons/icons";
+import { arrowDownCircleOutline, cartOutline, pricetagOutline } from "ionicons/icons";
 
 // Your custom styles for the carousel
 
@@ -176,6 +178,21 @@ const Trending: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent color="tborchidpink">
+        <div className="spinner-container success-spinner">
+          <IonRefresher
+            color="success"
+            slot="fixed"
+            onIonRefresh={handleRefresh}
+          >
+            <IonRefresherContent
+              color="dark"
+              pullingIcon={arrowDownCircleOutline}
+              pullingText="Puxe para atualizar"
+              refreshingSpinner="lines" // Alterar para "lines"
+              refreshingText="Atualizando..."
+            />
+          </IonRefresher>
+        </div>
         <Swiper
           className="large-image-swiper" // Unique class name for this Swiper
           autoplay={{
@@ -184,7 +201,7 @@ const Trending: React.FC = () => {
           }}
           centeredSlides={true}
           spaceBetween={30}
-          slidesPerView={"auto"}
+          slidesPerView={1}
           pagination={{ clickable: true, dynamicBullets: true }}
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
@@ -218,7 +235,7 @@ const Trending: React.FC = () => {
           }}
           centeredSlides={true}
           spaceBetween={30}
-          slidesPerView={"auto"}
+          slidesPerView={1}
           pagination={{ clickable: true, dynamicBullets: true }}
           modules={[Autoplay, Pagination]}
         >
@@ -278,7 +295,7 @@ const Trending: React.FC = () => {
           }}
           centeredSlides={true}
           spaceBetween={30}
-          slidesPerView={"auto"}
+          slidesPerView={1}
           pagination={{ clickable: true, dynamicBullets: true }}
           modules={[Autoplay, Pagination]}
         >
@@ -338,7 +355,7 @@ const Trending: React.FC = () => {
           }}
           centeredSlides={true}
           spaceBetween={30}
-          slidesPerView={"auto"}
+          slidesPerView={1}
           pagination={{ clickable: true, dynamicBullets: true }}
           modules={[Autoplay, Pagination]}
         >
@@ -398,7 +415,7 @@ const Trending: React.FC = () => {
           }}
           centeredSlides={true}
           spaceBetween={30}
-          slidesPerView={"auto"}
+          slidesPerView={1}
           pagination={{ clickable: true, dynamicBullets: true }}
           modules={[Autoplay, Pagination]}
         >

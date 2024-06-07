@@ -13,32 +13,31 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { Redirect, Route } from "react-router";
-import Tab1 from "./Tab1settings";
+import Tab1 from "../Perfil/Tab1settings";
 import Tab2 from "./Tab2settings";
 import {
   cogSharp,
   contrastOutline,
   hammerOutline,
   homeOutline,
+  personOutline,
 } from "ionicons/icons";
-import Tab1settings from "./Tab1settings";
+import Tab1settings from "../Perfil/Tab1settings";
 import Tab2settings from "./Tab2settings";
 import hamburguerbotao from "../../components/hamburguerbotao";
+import "../../components/tabs.css";
 
 const Settings: React.FC = () => {
-
-
-
   return (
     <IonTabs>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="Tab1settings" href="/menu/settings/Tab1settings">
-          <IonIcon icon={hammerOutline} />
-          <IonLabel>Configurações</IonLabel>
+      <IonTabBar slot="bottom" className="custom-tab-bar">
+        <IonTabButton tab="Tab2settings" href="/menu/inicial">
+          <IonIcon color="tborchidpink" icon={homeOutline} />
+          <IonLabel color="tborchidpink">Home</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="Tab2settings" href="/menu/settings/Tab2settings">
-          <IonIcon icon={contrastOutline} />
-          <IonLabel>Home</IonLabel>
+        <IonTabButton tab="Tab1settings" href="/menu/perfil/tab1perfil">
+          <IonIcon color="tborchidpink" icon={personOutline} />
+          <IonLabel color="tborchidpink"> Configurações</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>

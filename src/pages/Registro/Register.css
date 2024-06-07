@@ -1,21 +1,21 @@
 /* No arquivo global.css ou em seu arquivo de estilo específico */
 .radio-visible .radio-icon {
-  border: 50px solid var(--ion-color-tbpink); /* ajuste a cor conforme sua paleta */
+  border: 50px solid var(--ion-color-tborchidpink); /* ajuste a cor conforme sua paleta */
   background: var(--ion-color-light); /* fundo mais claro para contraste */
 }
 
 .radio-visible .radio-icon::after {
-  background-color: var(--ion-color-tbpink); /* Cor do indicador interno */
+  background-color: var(--ion-color-tborchidpink); /* Cor do indicador interno */
 }
 
 ion-radio {
-  --color: var(--ion-color-tbpink); /* Cor da bolinha quando selecionada */
+  --color: var(--ion-color-tborchidpink); /* Cor da bolinha quando selecionada */
   --color-checked: var(
-    --ion-color-tbpink
+    --ion-color-tborchidpink
   ); /* Cor da bolinha quando não selecionada */
-  --border-color: var(--ion-color-tbpink); /* Cor da borda da bolinha */
+  --border-color: var(--ion-color-tborchidpink); /* Cor da borda da bolinha */
   --background-checked: var(
-    --ion-color-tbpink
+    --ion-color-tborchidpink
   ); /* Background da bolinha quando selecionada */
   --background: var(
     --ion-color-light
@@ -44,7 +44,7 @@ ion-radio {
 }
 
 .bordagen{
-  border: solid #b06ed3;
+  border: solid #f2bac9;
   border-radius: 4px;
   padding-left: 16px;
   padding-right: 16px;

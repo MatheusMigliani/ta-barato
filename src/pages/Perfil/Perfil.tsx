@@ -14,25 +14,25 @@ import {
 import React from "react";
 import { Redirect, Route } from "react-router";
 import Tab1perfil from "./Tab1perfil";
-import Tab2perfil from "./Tab2perfil";
-import { personOutline, settingsOutline } from 'ionicons/icons';
+import { homeOutline, personOutline, settingsOutline } from "ionicons/icons";
+import "../../components/tabs.css";
 
 const Perfil: React.FC = () => {
   return (
     <IonTabs>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="Tab1perfil" href="/menu/perfil/Tab1perfil">
-          <IonIcon icon={personOutline} />
-          <IonLabel>Perfil</IonLabel>
+      <IonTabBar color={"tbhoneydew"} slot="bottom" className="custom-tab-bar">
+        <IonTabButton tab="Home" href="/menu/inicial">
+          <IonIcon color="tborchidpink" icon={homeOutline} />
+          <IonLabel color="tborchidpink">Home</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="Tab2perfil" href="/menu/perfil/Tab2perfil">
-          <IonIcon icon={settingsOutline} />
-          <IonLabel>Configurações</IonLabel>
+        <IonTabButton tab="Configurações" href="/menu/settings">
+          <IonIcon color="tborchidpink" icon={settingsOutline} />
+          <IonLabel color="tborchidpink">Configurações</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>
         <Route path="/menu/perfil/tab1perfil" component={Tab1perfil} />
-        <Route path="/menu/perfil/tab2perfil" component={Tab2perfil} />
+
         <Route exact path="/menu/perfil">
           <Redirect to="/menu/perfil/tab1perfil" />
         </Route>

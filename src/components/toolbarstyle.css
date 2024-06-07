@@ -1,13 +1,15 @@
 ion-searchbar ion-icon {
-color: #b06ed3 !important;
---placeholder-color: #b06ed3 !important;
+  color: #b06ed3 !important;
+  --placeholder-color: #b06ed3 !important;
 }
 
 ion-searchbar {
   --placeholder-color: #b06ed3 !important;
 }
 
-.contention{background-color: #1D3557;}
+.contention {
+  background-color: #1d3557;
+}
 
 .toolbar {
   position: relative;
@@ -16,26 +18,24 @@ ion-searchbar {
 .pesquisa-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  position: relative;
 }
 
 .pesquisa {
   flex: 1;
   max-width: 0;
   opacity: 0;
+  flex-grow: 1;
   transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
   overflow: hidden;
   background-color: var(--ion-color-dark);
-  -webkit-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
-  -moz-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
-  -ms-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
-  -o-transition: max-width 0.5s ease-in-out, opacity 0.1s ease-in-out;
 }
 
 .pesquisa.visible {
   max-width: 100%;
   opacity: 1;
+  display: block;
 }
 
 .icons-container {
@@ -49,6 +49,17 @@ ion-searchbar {
   display: none;
 }
 
+.toggle-container {
+  display: flex;
+  align-items: center;
+}
 
-
-
+.toggle-icon {
+  font-size: 1.5em; /* Ajuste o tamanho conforme necessário */
+  color: #b06ed3;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  flex: 2;
+  justify-content: flex-start; /* Espaçamento entre o ícone e o toggle */
+}

@@ -1,10 +1,18 @@
 .deal-card {
-  /* background: rgba(172, 170, 170, 0.7); */
-
+  background: linear-gradient(145deg, rgba(72, 72, 72, 0.8), rgba(45, 45, 45, 0.9));
   border-radius: 10px;
   color: white;
   margin: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.deal-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
 #tsparticles {
   position: absolute;
   width: 100%;
@@ -16,10 +24,13 @@
   position: relative;
   z-index: 1; /* Certifique-se de que o Swiper fique acima das partículas */
 }
+
 .section-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 16px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .card-content {
@@ -30,14 +41,12 @@
 }
 
 .main-image {
-  width: 600px;
-  height: fit-content;
+  width: 700px; /* Aumentado o tamanho da largura da imagem */
+  height: auto; /* Mantém a proporção da imagem */
   border-radius: 26px;
   margin-right: 16px;
-  -webkit-border-radius: 26px;
-  -moz-border-radius: 26px;
-  -ms-border-radius: 26px;
-  -o-border-radius: 26px;
+  object-fit: cover;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .details {
@@ -45,33 +54,39 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  max-width: 400px;
 }
 
 .deal-title {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   margin-bottom: 8px;
+  color: #ffeb3b;
 }
 
 .price-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 8px;
 }
 
 .discount {
   color: #8fff00;
   font-size: 22px;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .current-price {
   font-size: 20px;
   font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 4px;
 }
 
 .original-price {
   font-size: 21px;
-  color: rgba(255, 45.69, 45.69, 0.61);
+  color: rgba(255, 69, 69, 0.7);
   text-decoration: line-through;
 }

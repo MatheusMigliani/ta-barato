@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   IonButton,
   IonContent,
@@ -18,6 +18,15 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import "./Login.css";
+
+// Crie um contexto para o hook useAuth
+const AuthContext = React.createContext<any>(null);
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+export { AuthContext };
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -104,7 +113,7 @@ const Login: React.FC = () => {
               name="password"
             />
             <IonButton
-              color={"tbpink"}
+              color={"tborchidpink"}
               expand="block"
               type="submit"
               className="ion-margin-bottom ion-margin-top"
@@ -121,11 +130,11 @@ const Login: React.FC = () => {
           >
             Clique aqui para se Registrar
           </IonButton>
-          <IonText color={"tbpink"} className="ion-margin-bottom">
+          <IonText color={"tborchidpink"} className="ion-margin-bottom">
             Ou continue com o
           </IonText>
           <IonButton
-            color={"tbpink"}
+            color={"tborchidpink"}
             expand="block"
             fill="outline"
             onClick={DoGoogleLogin}
@@ -133,13 +142,14 @@ const Login: React.FC = () => {
             <IonIcon slot="start" icon={logoGoogle} />
             Google
           </IonButton>
-          <IonText color={"tbpink"} className="ion-margin-top">
+          <IonText color={"tborchidpink"} className="ion-margin-top">
             Ao clicar em continuar, você aceita nossos Termos de serviço e
             Privacidade.
           </IonText>
         </div>
 
         <IonToast
+          color={"tborchidpink"}
           isOpen={showToast}
           onDidDismiss={() => setShowToast(false)}
           message={toastMessage}
