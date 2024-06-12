@@ -80,7 +80,7 @@ const Login: React.FC = () => {
       <IonContent className="background ion-padding" color={"dark"} fullscreen>
         <div className="login-container ion-text-center ion-align-items-center ion-align-self-center ion">
           <img
-            src="assets/TA BARATO no name.svg"
+            src="assets/new pink.svg"
             width={119}
             height={139}
             alt="logo"
