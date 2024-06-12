@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import {
   IonButton,
   IonContent,
@@ -20,13 +20,7 @@ import {
 import "./Login.css";
 
 // Crie um contexto para o hook useAuth
-const AuthContext = React.createContext<any>(null);
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-export { AuthContext };
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");

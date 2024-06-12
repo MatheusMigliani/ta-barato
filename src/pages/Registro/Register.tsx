@@ -209,8 +209,6 @@ const Register: React.FC = () => {
             fill="outline"
             label="Data de nascimento"
             labelPlacement="floating"
-            value={birthdate}
-            onInput={(e) => setBirthdate(e.detail.value!)}
             placeholder="Data de nascimento"
             type="date"
             required

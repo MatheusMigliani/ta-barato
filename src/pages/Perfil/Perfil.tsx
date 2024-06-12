@@ -15,7 +15,7 @@ import React from "react";
 import { Redirect, Route } from "react-router";
 import Tab1perfil from "./Tab1perfil";
 import { homeOutline, personOutline, settingsOutline } from "ionicons/icons";
-import "../../components/tabs.css";
+
 
 const Perfil: React.FC = () => {
   return (

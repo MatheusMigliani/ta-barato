@@ -54,21 +54,22 @@ export const getGameBoxart = async (gameId) => {
 export const getGamePrices = async (gameId) => {
   try {
     const response = await http.post("games/prices/v2", {
-      params: {
-        key: apiKey,
-        ids: gameId,
-      },
+      key: apiKey,
+      ids: gameId,
     });
-    const prices = response.data.data[gameId].list[0];
-    console.log("Prices for gameId:", gameId, prices);
+    const gameData = response.data.data[gameId]?.list[0];
+    if (!gameData) {
+      return {}; // Retorna um objeto vazio se os preços não estiverem disponíveis
+    }
     return {
-      amount: prices.price_new,
-      cut: prices.price_cut,
-      regular: prices.price_old,
-      historyLow: prices.price_cut, // Ajuste conforme necessário se você tiver uma fonte separada para o menor preço histórico
+      amount: gameData.price_new,
+      cut: gameData.price_cut,
+      regular: gameData.price_old,
+      historyLow: gameData.price_cut, // Ajuste conforme necessário se você tiver uma fonte separada para o menor preço histórico
     };
   } catch (error) {
     console.error("Error fetching game prices:", error);
+    return {}; // Retorna um objeto vazio em caso de erro
   }
 };
 

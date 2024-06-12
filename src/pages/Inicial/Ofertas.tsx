@@ -264,16 +264,16 @@ const Ofertas: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{deal.price?.cut}%
+                          -{deal.deal.cut}%
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {deal.price?.amount}
+                          R$ {deal.deal.price.amount}
                         </IonText>
                         <IonText className="original-price">
-                          R$ {deal.price?.regular}
+                          R$ {deal.deal.regular.amount}
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {deal.price?.historyLow}
+                          Melhor R$ {deal.deal.historyLow.amount}
                         </IonText>
                         <IonButton
                           expand="block"
