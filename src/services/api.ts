@@ -51,27 +51,7 @@ export const getGameBoxart = async (gameId) => {
   }
 };
 
-export const getGamePrices = async (gameId) => {
-  try {
-    const response = await http.post("games/prices/v2", {
-      key: apiKey,
-      ids: gameId,
-    });
-    const gameData = response.data.data[gameId]?.list[0];
-    if (!gameData) {
-      return {}; // Retorna um objeto vazio se os preços não estiverem disponíveis
-    }
-    return {
-      amount: gameData.price_new,
-      cut: gameData.price_cut,
-      regular: gameData.price_old,
-      historyLow: gameData.price_cut, // Ajuste conforme necessário se você tiver uma fonte separada para o menor preço histórico
-    };
-  } catch (error) {
-    console.error("Error fetching game prices:", error);
-    return {}; // Retorna um objeto vazio em caso de erro
-  }
-};
+
 
 export const getMostPopularGames = async () => {
   try {

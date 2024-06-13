@@ -15,7 +15,12 @@ import {
 import React, { useEffect, useState } from "react";
 import Hamburguerbotao from "../../components/hamburguerbotao";
 import "./trending.css";
-import { arrowDownCircleOutline, cartOutline, pricetagOutline } from "ionicons/icons";
+import {
+  arrowDownCircleOutline,
+  cartOutline,
+  pricetagOutline,
+} from "ionicons/icons";
+import "../../components/darkmode.css";
 
 // Your custom styles for the carousel
 
@@ -23,7 +28,6 @@ import {
   getDeals,
   getGameBoxart,
   getGameInfo,
-  getGamePrices,
   getMostPopularGames,
   getMostCollectedGames,
   getMostWaitlistedGames,
@@ -38,11 +42,12 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "../../components/swiper.css";
 import "../../components/swiperbig.css";
+import "../../components/body.css";
 
 // Install Swiper modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
-const Trending: React.FC = () => {
+const Ofertas: React.FC = () => {
   const [deals, setDeals] = useState([]);
   const [mostPopularGames, setMostPopularGames] = useState([]);
   const [mostCollectedGames, setMostCollectedGames] = useState([]);
@@ -67,15 +72,13 @@ const Trending: React.FC = () => {
       dealsData.map((deal) => getGameBoxart(deal.id))
     );
 
-    const priceInfos = await Promise.all(
-      dealsData.map((deal) => getGamePrices(deal.id))
-    );
+   
 
     const dealsWithImages = dealsData.map((deal, index) => ({
       ...deal,
       image: gameInfos[index],
       boxart: boxartInfos[index],
-      price: priceInfos[index],
+  
     }));
 
     const filteredDeals = dealsWithImages.filter(
@@ -94,16 +97,14 @@ const Trending: React.FC = () => {
     const mostPopularBoxartInfos = await Promise.all(
       mostPopularGamesData.map((game) => getGameBoxart(game.id))
     );
-    const mostPopularPriceInfos = await Promise.all(
-      mostPopularGamesData.map((game) => getGamePrices(game.id))
-    );
+ 
 
     const mostPopularGamesWithImages = mostPopularGamesData.map(
       (game, index) => ({
         ...game,
         image: mostPopularGameInfos[index],
         boxart: mostPopularBoxartInfos[index],
-        price: mostPopularPriceInfos[index],
+     
       })
     );
     setMostPopularGames(mostPopularGamesWithImages);
@@ -118,16 +119,14 @@ const Trending: React.FC = () => {
     const mostCollectedBoxartInfos = await Promise.all(
       mostCollectedGamesData.map((game) => getGameBoxart(game.id))
     );
-    const mostCollectedPriceInfos = await Promise.all(
-      mostCollectedGamesData.map((game) => getGamePrices(game.id))
-    );
+
 
     const mostCollectedGamesWithImages = mostCollectedGamesData.map(
       (game, index) => ({
         ...game,
         image: mostCollectedGameInfos[index],
         boxart: mostCollectedBoxartInfos[index],
-        price: mostCollectedPriceInfos[index],
+
       })
     );
     setMostCollectedGames(mostCollectedGamesWithImages);
@@ -142,16 +141,13 @@ const Trending: React.FC = () => {
     const mostWaitlistedBoxartInfos = await Promise.all(
       mostWaitlistedGamesData.map((game) => getGameBoxart(game.id))
     );
-    const mostWaitlistedPriceInfos = await Promise.all(
-      mostWaitlistedGamesData.map((game) => getGamePrices(game.id))
-    );
+
 
     const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map(
       (game, index) => ({
         ...game,
         image: mostWaitlistedGameInfos[index],
         boxart: mostWaitlistedBoxartInfos[index],
-        price: mostWaitlistedPriceInfos[index],
       })
     );
     setMostWaitlistedGames(mostWaitlistedGamesWithImages);
@@ -177,8 +173,8 @@ const Trending: React.FC = () => {
           <Hamburguerbotao />
         </IonToolbar>
       </IonHeader>
-      <IonContent color="tborchidpink">
-        <div className="spinner-container success-spinner">
+      <IonContent color={"tborchidpink"}>
+        <div className="spinner-container success-spinner ion-padding">
           <IonRefresher
             color="success"
             slot="fixed"
@@ -220,7 +216,7 @@ const Trending: React.FC = () => {
                   <h1>{game.title}</h1>
                   <br />
                   <p>
-                    <IonText color={"primary"}>Clássicos & Atemporais</IonText>
+                    <IonText>Clássicos & Atemporais</IonText>
                   </p>
                 </div>
               </div>
@@ -244,7 +240,7 @@ const Trending: React.FC = () => {
               <IonCard color={"tbhoneydew"} className="deal-card">
                 <IonCardContent>
                   <IonText color="primary" className="section-title">
-                    🔥Melhores Ofertas🔥
+                    🔥MELHORES OFERTAS🔥
                   </IonText>
                   <div className="card-content">
                     <IonImg
@@ -258,21 +254,21 @@ const Trending: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{deal.price?.cut}%
+                          -{deal.deal.cut}%
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {deal.price?.amount}
+                          R$ {deal.deal.price.amount}
                         </IonText>
                         <IonText className="original-price">
-                          R$ {deal.price?.regular}
+                          R$ {deal.deal.regular.amount}
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {deal.price?.historyLow}
+                          Melhor R$ {deal.deal.historyLow.amount}
                         </IonText>
                         <IonButton
                           expand="block"
                           fill="outline"
-                          color="primary"
+                          color="warning"
                           onClick={() => handleLinkClick(deal.deal.url)}
                         >
                           <IonIcon icon={cartOutline} />
@@ -318,21 +314,21 @@ const Trending: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{game.price?.cut}%
+                          
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {game.price?.amount}
+                          R$ 
                         </IonText>
                         <IonText className="original-price">
-                          R$ {game.price?.regular}
+                          R$ 
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {game.price?.historyLow}
+                          Melhor R$ 
                         </IonText>
                         <IonButton
                           expand="block"
                           fill="outline"
-                          color="primary"
+                          color="warning"
                           onClick={() => handleLinkClick(game.urls.game)}
                         >
                           <IonIcon icon={cartOutline} />
@@ -378,21 +374,21 @@ const Trending: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{game.price?.cut}%
+                          
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {game.price?.amount}
+                          R$ 
                         </IonText>
                         <IonText className="original-price">
-                          R$ {game.price?.regular}
+                          R$ 
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {game.price?.historyLow}
+                          Melhor R$
                         </IonText>
                         <IonButton
                           expand="block"
                           fill="outline"
-                          color="primary"
+                          color="warning"
                           onClick={() => handleLinkClick(game.urls.game)}
                         >
                           <IonIcon icon={cartOutline} />
@@ -424,7 +420,8 @@ const Trending: React.FC = () => {
               <IonCard color={"tbhoneydew"} className="deal-card">
                 <IonCardContent>
                   <IonText color="primary" className="section-title">
-                    🎁 MAIS AGUARDADOS 🎁
+                    🎁 MAIS <br />
+                    AGUARDADOS 🎁
                   </IonText>
                   <div className="card-content">
                     <IonImg
@@ -438,21 +435,21 @@ const Trending: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{game.price?.cut}%
+                      
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {game.price?.amount}
+                          R$
                         </IonText>
                         <IonText className="original-price">
-                          R$ {game.price?.regular}
+                          R$
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {game.price?.historyLow}
+                          Melhor R$ 
                         </IonText>
                         <IonButton
                           expand="block"
                           fill="outline"
-                          color="primary"
+                          color="warning"
                           onClick={() => handleLinkClick(game.urls.game)}
                         >
                           <IonIcon icon={cartOutline} />
@@ -471,4 +468,4 @@ const Trending: React.FC = () => {
   );
 };
 
-export default Trending;
+export default Ofertas;

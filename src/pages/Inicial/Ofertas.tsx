@@ -28,7 +28,6 @@ import {
   getDeals,
   getGameBoxart,
   getGameInfo,
-  getGamePrices,
   getMostPopularGames,
   getMostCollectedGames,
   getMostWaitlistedGames,
@@ -73,15 +72,13 @@ const Ofertas: React.FC = () => {
       dealsData.map((deal) => getGameBoxart(deal.id))
     );
 
-    const priceInfos = await Promise.all(
-      dealsData.map((deal) => getGamePrices(deal.id))
-    );
+   
 
     const dealsWithImages = dealsData.map((deal, index) => ({
       ...deal,
       image: gameInfos[index],
       boxart: boxartInfos[index],
-      price: priceInfos[index],
+  
     }));
 
     const filteredDeals = dealsWithImages.filter(
@@ -100,16 +97,14 @@ const Ofertas: React.FC = () => {
     const mostPopularBoxartInfos = await Promise.all(
       mostPopularGamesData.map((game) => getGameBoxart(game.id))
     );
-    const mostPopularPriceInfos = await Promise.all(
-      mostPopularGamesData.map((game) => getGamePrices(game.id))
-    );
+ 
 
     const mostPopularGamesWithImages = mostPopularGamesData.map(
       (game, index) => ({
         ...game,
         image: mostPopularGameInfos[index],
         boxart: mostPopularBoxartInfos[index],
-        price: mostPopularPriceInfos[index],
+     
       })
     );
     setMostPopularGames(mostPopularGamesWithImages);
@@ -124,16 +119,14 @@ const Ofertas: React.FC = () => {
     const mostCollectedBoxartInfos = await Promise.all(
       mostCollectedGamesData.map((game) => getGameBoxart(game.id))
     );
-    const mostCollectedPriceInfos = await Promise.all(
-      mostCollectedGamesData.map((game) => getGamePrices(game.id))
-    );
+
 
     const mostCollectedGamesWithImages = mostCollectedGamesData.map(
       (game, index) => ({
         ...game,
         image: mostCollectedGameInfos[index],
         boxart: mostCollectedBoxartInfos[index],
-        price: mostCollectedPriceInfos[index],
+
       })
     );
     setMostCollectedGames(mostCollectedGamesWithImages);
@@ -148,16 +141,13 @@ const Ofertas: React.FC = () => {
     const mostWaitlistedBoxartInfos = await Promise.all(
       mostWaitlistedGamesData.map((game) => getGameBoxart(game.id))
     );
-    const mostWaitlistedPriceInfos = await Promise.all(
-      mostWaitlistedGamesData.map((game) => getGamePrices(game.id))
-    );
+
 
     const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map(
       (game, index) => ({
         ...game,
         image: mostWaitlistedGameInfos[index],
         boxart: mostWaitlistedBoxartInfos[index],
-        price: mostWaitlistedPriceInfos[index],
       })
     );
     setMostWaitlistedGames(mostWaitlistedGamesWithImages);
@@ -324,16 +314,16 @@ const Ofertas: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{game.price?.cut}%
+                          
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {game.price?.amount}
+                          R$ 
                         </IonText>
                         <IonText className="original-price">
-                          R$ {game.price?.regular}
+                          R$ 
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {game.price?.historyLow}
+                          Melhor R$ 
                         </IonText>
                         <IonButton
                           expand="block"
@@ -384,16 +374,16 @@ const Ofertas: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{game.price?.cut}%
+                          
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {game.price?.amount}
+                          R$ 
                         </IonText>
                         <IonText className="original-price">
-                          R$ {game.price?.regular}
+                          R$ 
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {game.price?.historyLow}
+                          Melhor R$
                         </IonText>
                         <IonButton
                           expand="block"
@@ -445,16 +435,16 @@ const Ofertas: React.FC = () => {
                       </IonText>
                       <div className="price-section">
                         <IonText className="discount">
-                          -{game.price?.cut}%
+                      
                         </IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ {game.price?.amount}
+                          R$
                         </IonText>
                         <IonText className="original-price">
-                          R$ {game.price?.regular}
+                          R$
                         </IonText>
                         <IonText className="best-price">
-                          Melhor R$ {game.price?.historyLow}
+                          Melhor R$ 
                         </IonText>
                         <IonButton
                           expand="block"
