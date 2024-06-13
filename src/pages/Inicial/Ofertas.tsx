@@ -31,6 +31,7 @@ import {
   getMostPopularGames,
   getMostCollectedGames,
   getMostWaitlistedGames,
+  getPriceHistory,
 } from "../../services/api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -52,7 +53,7 @@ const Ofertas: React.FC = () => {
   const [mostPopularGames, setMostPopularGames] = useState([]);
   const [mostCollectedGames, setMostCollectedGames] = useState([]);
   const [mostWaitlistedGames, setMostWaitlistedGames] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -60,99 +61,114 @@ const Ofertas: React.FC = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
+    try {
+      const [
+        dealsData,
+        mostPopularData,
+        mostCollectedData,
+        mostWaitlistedData,
+      ] = await Promise.all([
+        getDeals(),
+        getMostPopularGames(),
+        getMostCollectedGames(),
+        getMostWaitlistedGames(),
+      ]);
 
-    const dealsData = await getDeals();
-    console.log("dealsData:", dealsData);
+      const enrichedMostPopularGames = await Promise.all(
+        mostPopularData.map(async (game) => {
+          const gameInfo = await getGameInfo(game.id);
+          const gameBoxart = await getGameBoxart(game.id);
+          const priceHistory = await getPriceHistory(game.id);
 
-    const gameInfos = await Promise.all(
-      dealsData.map((deal) => getGameInfo(deal.id))
-    );
+          return {
+            ...game,
+            image: gameBoxart,
+            price: priceHistory[0]?.deal?.price.amount,
+            regular: priceHistory[0]?.deal?.regular.amount,
+            cut: priceHistory[0]?.deal?.cut,
+            historyLow: priceHistory.reduce(
+              (min, p) =>
+                p.deal.price.amount < min ? p.deal.price.amount : min,
+              priceHistory[0]?.deal.price.amount
+            ),
+          };
+        })
+      );
+      const enrichGamesWithPriceHistory = async (games) => {
+        return await Promise.all(
+          games.map(async (game) => {
+            const priceHistory = await getPriceHistory(game.id);
+            if (priceHistory && priceHistory.length > 0) {
+              const latestDeal = priceHistory[0].deal;
+              game.currentPrice = latestDeal.price.amount;
+              game.originalPrice = latestDeal.regular.amount;
+              game.discount = latestDeal.cut;
+              game.bestPrice = priceHistory.reduce(
+                (min, p) =>
+                  p.deal.price.amount < min ? p.deal.price.amount : min,
+                latestDeal.price.amount
+              );
+            } else {
+              game.currentPrice = null;
+              game.originalPrice = null;
+              game.discount = null;
+              game.bestPrice = null;
+            }
+            return game;
+          })
+        );
+      };
+      const enrichedMostCollectedGames = await Promise.all(
+        mostCollectedData.map(async (game) => {
+          const gameInfo = await getGameInfo(game.id);
+          const gameBoxart = await getGameBoxart(game.id);
+          const priceHistory = await getPriceHistory(game.id);
 
-    const boxartInfos = await Promise.all(
-      dealsData.map((deal) => getGameBoxart(deal.id))
-    );
+          return {
+            ...game,
+            image: gameBoxart,
+            price: priceHistory[0]?.deal?.price.amount,
+            regular: priceHistory[0]?.deal?.regular.amount,
+            cut: priceHistory[0]?.deal?.cut,
+            historyLow: priceHistory.reduce(
+              (min, p) =>
+                p.deal.price.amount < min ? p.deal.price.amount : min,
+              priceHistory[0]?.deal.price.amount
+            ),
+          };
+        })
+      );
 
-   
+      const enrichedMostWaitlistedGames = await Promise.all(
+        mostWaitlistedData.map(async (game) => {
+          const gameInfo = await getGameInfo(game.id);
+          const gameBoxart = await getGameBoxart(game.id);
+          const priceHistory = await getPriceHistory(game.id);
 
-    const dealsWithImages = dealsData.map((deal, index) => ({
-      ...deal,
-      image: gameInfos[index],
-      boxart: boxartInfos[index],
-  
-    }));
+          return {
+            ...game,
+            image: gameBoxart,
+            price: priceHistory[0]?.deal?.price.amount,
+            regular: priceHistory[0]?.deal?.regular.amount,
+            cut: priceHistory[0]?.deal?.cut,
+            historyLow: priceHistory.reduce(
+              (min, p) =>
+                p.deal.price.amount < min ? p.deal.price.amount : min,
+              priceHistory[0]?.deal.price.amount
+            ),
+          };
+        })
+      );
 
-    const filteredDeals = dealsWithImages.filter(
-      (deal) =>
-        deal.type === "package" || deal.type === "game" || deal.type === "dlc"
-    );
-    setDeals(filteredDeals);
-
-    // Fetch most popular games
-    const mostPopularGamesData = await getMostPopularGames();
-    console.log("mostPopularGamesData:", mostPopularGamesData);
-
-    const mostPopularGameInfos = await Promise.all(
-      mostPopularGamesData.map((game) => getGameInfo(game.id))
-    );
-    const mostPopularBoxartInfos = await Promise.all(
-      mostPopularGamesData.map((game) => getGameBoxart(game.id))
-    );
- 
-
-    const mostPopularGamesWithImages = mostPopularGamesData.map(
-      (game, index) => ({
-        ...game,
-        image: mostPopularGameInfos[index],
-        boxart: mostPopularBoxartInfos[index],
-     
-      })
-    );
-    setMostPopularGames(mostPopularGamesWithImages);
-
-    // Fetch most collected games
-    const mostCollectedGamesData = await getMostCollectedGames();
-    console.log("mostCollectedGamesData:", mostCollectedGamesData);
-
-    const mostCollectedGameInfos = await Promise.all(
-      mostCollectedGamesData.map((game) => getGameInfo(game.id))
-    );
-    const mostCollectedBoxartInfos = await Promise.all(
-      mostCollectedGamesData.map((game) => getGameBoxart(game.id))
-    );
-
-
-    const mostCollectedGamesWithImages = mostCollectedGamesData.map(
-      (game, index) => ({
-        ...game,
-        image: mostCollectedGameInfos[index],
-        boxart: mostCollectedBoxartInfos[index],
-
-      })
-    );
-    setMostCollectedGames(mostCollectedGamesWithImages);
-
-    // Fetch most waitlisted games
-    const mostWaitlistedGamesData = await getMostWaitlistedGames();
-    console.log("mostWaitlistedGamesData:", mostWaitlistedGamesData);
-
-    const mostWaitlistedGameInfos = await Promise.all(
-      mostWaitlistedGamesData.map((game) => getGameInfo(game.id))
-    );
-    const mostWaitlistedBoxartInfos = await Promise.all(
-      mostWaitlistedGamesData.map((game) => getGameBoxart(game.id))
-    );
-
-
-    const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map(
-      (game, index) => ({
-        ...game,
-        image: mostWaitlistedGameInfos[index],
-        boxart: mostWaitlistedBoxartInfos[index],
-      })
-    );
-    setMostWaitlistedGames(mostWaitlistedGamesWithImages);
-
-    setIsLoading(false);
+      setDeals(dealsData);
+      setMostPopularGames(enrichedMostPopularGames);
+      setMostCollectedGames(enrichedMostCollectedGames);
+      setMostWaitlistedGames(enrichedMostWaitlistedGames);
+    } catch (error) {
+      console.error("Error fetching data", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRefresh = (event: CustomEvent) => {
@@ -313,18 +329,14 @@ const Ofertas: React.FC = () => {
                         {game.title}
                       </IonText>
                       <div className="price-section">
-                        <IonText className="discount">
-                          
-                        </IonText>
+                        <IonText className="discount">-{game.cut}%</IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ 
+                          R$ {game.price}
                         </IonText>
                         <IonText className="original-price">
-                          R$ 
+                          R$ {game.regular}
                         </IonText>
-                        <IonText className="best-price">
-                          Melhor R$ 
-                        </IonText>
+                        <IonText className="best-price">{game.shop}</IonText>
                         <IonButton
                           expand="block"
                           fill="outline"
@@ -373,18 +385,14 @@ const Ofertas: React.FC = () => {
                         {game.title}
                       </IonText>
                       <div className="price-section">
-                        <IonText className="discount">
-                          
-                        </IonText>
+                        <IonText className="discount">-{game.cut}%</IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$ 
+                          R$ {game.price}
                         </IonText>
                         <IonText className="original-price">
-                          R$ 
+                          R$ {game.regular}
                         </IonText>
-                        <IonText className="best-price">
-                          Melhor R$
-                        </IonText>
+                        <IonText className="best-price">{game.shop}</IonText>
                         <IonButton
                           expand="block"
                           fill="outline"
@@ -434,18 +442,14 @@ const Ofertas: React.FC = () => {
                         {game.title}
                       </IonText>
                       <div className="price-section">
-                        <IonText className="discount">
-                      
-                        </IonText>
+                        <IonText className="discount">-{game.cut}%</IonText>
                         <IonText color="tborchidpink" className="current-price">
-                          R$
+                          R$ {game.price}
                         </IonText>
                         <IonText className="original-price">
-                          R$
+                          R$ {game.regular}
                         </IonText>
-                        <IonText className="best-price">
-                          Melhor R$ 
-                        </IonText>
+                        <IonText className="best-price">{game.shop}</IonText>
                         <IonButton
                           expand="block"
                           fill="outline"

@@ -20,7 +20,7 @@ export const getDeals = async () => {
   } catch (error) {
     console.error("Error fetching deals:", error);
   }
-};  
+};
 
 export const getGameInfo = async (gameId) => {
   try {
@@ -44,14 +44,12 @@ export const getGameBoxart = async (gameId) => {
         id: gameId,
       },
     });
-    console.log("boxarts :", response.data);
+   
     return response.data.assets.boxart;
   } catch (error) {
     console.error("Error fetching game info:", error);
   }
 };
-
-
 
 export const getMostPopularGames = async () => {
   try {
@@ -97,5 +95,17 @@ export const getMostWaitlistedGames = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching most waitlisted games:", error);
+  }
+};
+
+export const getPriceHistory = async (gameId: string) => {
+  try {
+    const response = await http.get("games/history/v2", {
+      params: { key: apiKey, id: gameId },
+    });
+    console.log("price:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching price history:", error);
   }
 };
