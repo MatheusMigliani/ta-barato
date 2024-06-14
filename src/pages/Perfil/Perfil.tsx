@@ -14,16 +14,21 @@ import {
 import React from "react";
 import { Redirect, Route } from "react-router";
 import Tab1perfil from "./Tab1perfil";
-import { homeOutline, personOutline, pricetagOutline, settingsOutline } from "ionicons/icons";
-
+import {
+  homeOutline,
+  personOutline,
+  pricetagOutline,
+  settingsOutline,
+} from "ionicons/icons";
+import "../../components/tabs.css";
 
 const Perfil: React.FC = () => {
   return (
     <IonTabs>
-      <IonTabBar color={"tbhoneydew"} slot="bottom" className="custom-tab-bar">
+      <IonTabBar slot="bottom" className="custom-tab-bar">
         <IonTabButton tab="Home" href="/menu/inicial">
-          <IonIcon color="tborchidpink" icon={pricetagOutline} />
-          <IonLabel color="tborchidpink">Home</IonLabel>
+          <IonIcon icon={pricetagOutline} />
+          <IonLabel>Home</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>

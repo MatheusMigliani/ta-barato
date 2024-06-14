@@ -11,6 +11,7 @@ import {
   IonRefresherContent,
   IonText,
   IonToolbar,
+  useIonLoading,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import Hamburguerbotao from "../../components/hamburguerbotao";
@@ -43,8 +44,6 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import "../../components/swiper.css";
-import "../../components/swiperbig.css";
 import "../../components/body.css";
 
 // Install Swiper modules
@@ -56,6 +55,7 @@ const Ofertas: React.FC = () => {
   const [mostCollectedGames, setMostCollectedGames] = useState([]);
   const [mostWaitlistedGames, setMostWaitlistedGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [present, dismiss] = useIonLoading();
 
   useEffect(() => {
     fetchData();
@@ -63,6 +63,7 @@ const Ofertas: React.FC = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
+    present("Carregando Dados");
     try {
       const [
         dealsData,
@@ -195,14 +196,18 @@ const Ofertas: React.FC = () => {
       console.error("Error fetching data", error);
     } finally {
       setIsLoading(false);
+      dismiss();
     }
   };
 
   const handleRefresh = (event: CustomEvent) => {
     fetchData();
     setTimeout(() => {
+      present("Carregando Dados");
+      
       event.detail.complete();
-    }, 1000); // Simula um atraso de 2 segundos para demonstração
+    }, 2000);
+    dismiss(); // Simula um atraso de 2 segundos para demonstração
   };
 
   const handleLinkClick = (url: string) => {
@@ -237,7 +242,7 @@ const Ofertas: React.FC = () => {
             />
           </IonRefresher>
         </div>
-
+        
         <Swiper
           className="large-image-swiper" // Unique class name for this Swiper
           autoplay={{

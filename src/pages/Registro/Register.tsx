@@ -135,10 +135,10 @@ const Register: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent className="background ion-padding" color={"dark"} fullscreen>
+      <IonContent className="background ion-padding"  fullscreen>
         <div className="ion-padding ion-text-center">
           <img
-            src="assets/TA BARATO no name.svg"
+            src="assets/new pink.svg"
             width={119}
             height={139}
             alt="logo"
@@ -230,7 +230,7 @@ const Register: React.FC = () => {
                 justify="space-between"
                 className="radio-container"
               >
-                <IonText>Masculino</IonText>
+                <IonText color={"primary"}>Masculino</IonText>
               </IonRadio>
               <br />
               <IonRadio
@@ -242,7 +242,7 @@ const Register: React.FC = () => {
                 aria-label="Custom checkbox"
                 className="radio-container"
               >
-                <IonText>Feminino</IonText>
+                <IonText color={"primary"}> Feminino</IonText>
               </IonRadio>
               <br />
               <IonRadio
@@ -252,7 +252,7 @@ const Register: React.FC = () => {
                 justify="space-between"
                 className="radio-container"
               >
-                <IonText>Outros</IonText>
+                <IonText color={"primary"}>Outros</IonText>
               </IonRadio>
               <br />
             </IonRadioGroup>
@@ -286,7 +286,7 @@ const Register: React.FC = () => {
           </IonButton>
         </form>
         <IonButton
-          color={"light"}
+          color={"primary"}
           expand="block"
           fill="clear"
           routerLink="/"
@@ -310,7 +310,6 @@ const Register: React.FC = () => {
           duration={3000}
         />
       </IonContent>
-      <IonFooter color="tborchidpink">@M1gliani</IonFooter>
     </IonPage>
   );
 };

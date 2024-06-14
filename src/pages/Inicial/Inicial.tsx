@@ -17,14 +17,14 @@ const Inicial: React.FC = () => {
   
   return (
     <IonTabs>
-      <IonTabBar color={"tbhoneydew"}  slot="bottom" className="custom-tab-bar">
+      <IonTabBar slot="bottom" className="custom-tab-bar">
         <IonTabButton tab="Ofertas" href="/menu/Inicial/Ofertas">
-          <IonIcon color="tborchidpink" icon={pricetagOutline} />
-          <IonLabel color="tborchidpink">Ofertas</IonLabel>
+          <IonIcon  icon={pricetagOutline} />
+          <IonLabel >Ofertas</IonLabel>
         </IonTabButton>
         <IonTabButton tab="Perfil" href="/menu/perfil">
-          <IonIcon color="tborchidpink" icon={personOutline} />
-          <IonLabel color="tborchidpink">Perfil</IonLabel>
+          <IonIcon  icon={personOutline} />
+          <IonLabel >Perfil</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>

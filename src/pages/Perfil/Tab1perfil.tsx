@@ -6,14 +6,20 @@ import {
   IonHeader,
   IonIcon,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonRow,
   IonText,
   IonToolbar,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-
 import Hamburguerbotao from "../../components/hamburguerbotao";
-import { starOutline, star, personCircleOutline } from "ionicons/icons";
+import {
+  starOutline,
+  star,
+  personCircleOutline,
+  arrowDownCircleOutline,
+} from "ionicons/icons";
 import {
   getMostPopularGames,
   getMostCollectedGames,
@@ -22,7 +28,6 @@ import {
   getGameInfo,
 } from "../../services/api";
 import "./perfil.css";
-
 import "../../components/tabs.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -37,25 +42,15 @@ import ImageUploader from "../../components/ImageUploader";
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const Tab1perfil: React.FC = () => {
-  // Obtenha o usuário autenticado do contexto de autenticação
-  /* const [user] = useAuthState(auth); // Obtém o usuário autenticado do hook useAuthState */
-
   const [user, setUser] = useState<any>(null);
   const [registrationDate, setRegistrationDate] = useState<string>("");
   const [lastLoginDate, setLastLoginDate] = useState<string>("");
-  const [starRating, setStarRating] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [starRating, setStarRating] = useState([false, false, false, false, false]);
   const [mostPopularGames, setMostPopularGames] = useState([]);
   const [mostCollectedGames, setMostCollectedGames] = useState([]);
   const [mostWaitlistedGames, setMostWaitlistedGames] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
-  // Use a foto de perfil do usuário autenticado como imagem inicial
 
   useEffect(() => {
     const imageUrl = localStorage.getItem("profileImageUrl");
@@ -74,6 +69,7 @@ const Tab1perfil: React.FC = () => {
       setLastLoginDate(user.metadata.lastSignInTime);
     }
   };
+
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -85,13 +81,11 @@ const Tab1perfil: React.FC = () => {
       mostPopularGamesData.map((game) => getGameBoxart(game.id))
     );
 
-    const mostPopularGamesWithImages = mostPopularGamesData.map(
-      (game, index) => ({
-        ...game,
-        image: mostPopularGameInfos[index],
-        boxart: mostPopularBoxartInfos[index],
-      })
-    );
+    const mostPopularGamesWithImages = mostPopularGamesData.map((game, index) => ({
+      ...game,
+      image: mostPopularGameInfos[index],
+      boxart: mostPopularBoxartInfos[index],
+    }));
     setMostPopularGames(mostPopularGamesWithImages);
 
     const mostCollectedGamesData = await getMostCollectedGames();
@@ -102,13 +96,11 @@ const Tab1perfil: React.FC = () => {
       mostCollectedGamesData.map((game) => getGameBoxart(game.id))
     );
 
-    const mostCollectedGamesWithImages = mostCollectedGamesData.map(
-      (game, index) => ({
-        ...game,
-        image: mostCollectedGameInfos[index],
-        boxart: mostCollectedBoxartInfos[index],
-      })
-    );
+    const mostCollectedGamesWithImages = mostCollectedGamesData.map((game, index) => ({
+      ...game,
+      image: mostCollectedGameInfos[index],
+      boxart: mostCollectedBoxartInfos[index],
+    }));
     setMostCollectedGames(mostCollectedGamesWithImages);
 
     const mostWaitlistedGamesData = await getMostWaitlistedGames();
@@ -119,28 +111,33 @@ const Tab1perfil: React.FC = () => {
       mostWaitlistedGamesData.map((game) => getGameBoxart(game.id))
     );
 
-    const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map(
-      (game, index) => ({
-        ...game,
-        image: mostWaitlistedGameInfos[index],
-        boxart: mostWaitlistedBoxartInfos[index],
-      })
-    );
+    const mostWaitlistedGamesWithImages = mostWaitlistedGamesData.map((game, index) => ({
+      ...game,
+      image: mostWaitlistedGameInfos[index],
+      boxart: mostWaitlistedBoxartInfos[index],
+    }));
     setMostWaitlistedGames(mostWaitlistedGamesWithImages);
 
     setIsLoading(false);
   };
 
+  const handleRefresh = (event: CustomEvent) => {
+    fetchData();
+    setTimeout(() => {
+      event.detail.complete();
+    }, 1000); // Simula um atraso de 1 segundo para demonstração
+  };
+
   const handleStarClick = (index: number) => {
-    const newRating = starRating.map((filled, i) =>
-      i <= index ? true : false
-    );
+    const newRating = starRating.map((filled, i) => (i <= index ? true : false));
     setStarRating(newRating);
   };
+
   const handleImageSelected = (imageUrl: string) => {
     localStorage.setItem("profileImageUrl", imageUrl); // Armazena a URL da imagem no armazenamento local
     setProfileImageUrl(imageUrl);
   };
+
   return (
     <IonPage>
       <IonHeader>
@@ -149,10 +146,21 @@ const Tab1perfil: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen color="tborchidpink">
+        <div className="spinner-container success-spinner ion-padding">
+          <IonRefresher color="success" slot="fixed" onIonRefresh={handleRefresh}>
+            <IonRefresherContent
+              color="dark"
+              pullingIcon={arrowDownCircleOutline}
+              pullingText="Puxe para atualizar"
+              refreshingSpinner="lines"
+              refreshingText="Atualizando..."
+            />
+          </IonRefresher>
+        </div>
         <IonGrid>
           <IonRow>
             <IonCol className="profile-header" size="12">
-            <IonAvatar className="profile-avatar">
+              <IonAvatar className="profile-avatar">
                 {profileImageUrl ? (
                   <img src={profileImageUrl} alt="Profile" />
                 ) : (
@@ -173,14 +181,13 @@ const Tab1perfil: React.FC = () => {
                   />
                 ))}
               </div>
-              <div className="user-email">
+              <div className="user-dates">
                 <IonText>
-                  Data de Registro
-                  <br /> {registrationDate}
+                  Data de Registro: <br /> {registrationDate}
                 </IonText>
                 <br />
                 <IonText>
-                  Último Login <br />
+                  Último Login: <br />
                   {lastLoginDate}
                 </IonText>
               </div>
@@ -190,10 +197,7 @@ const Tab1perfil: React.FC = () => {
             <IonCol size="12" className="colunapop">
               <div className="list-title">MAIS POPULARES</div>
               <Swiper
-                autoplay={{
-                  delay: 1400,
-                  disableOnInteraction: false, // Ensure autoplay does not stop on user
-                }}
+                autoplay={{ delay: 1400, disableOnInteraction: false }}
                 centeredSlides={true}
                 spaceBetween={30}
                 slidesPerView={2}
@@ -215,10 +219,7 @@ const Tab1perfil: React.FC = () => {
             <IonCol size="12" className="colunapop">
               <div className="list-title">MAIS COLETADOS</div>
               <Swiper
-                autoplay={{
-                  delay: 1400,
-                  disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
-                }}
+                autoplay={{ delay: 1400, disableOnInteraction: false }}
                 centeredSlides={true}
                 spaceBetween={30}
                 slidesPerView={2}
@@ -240,13 +241,10 @@ const Tab1perfil: React.FC = () => {
             <IonCol size="12" className="colunapop">
               <div className="list-title">MAIS AGUARDADOS</div>
               <Swiper
-                autoplay={{
-                  delay: 1400,
-                  disableOnInteraction: false, // Ensure autoplay does not stop on user interaction
-                }}
+                autoplay={{ delay: 1400, disableOnInteraction: false }}
                 centeredSlides={true}
                 spaceBetween={30}
-                slidesPerView={"auto"}
+                slidesPerView={2}
                 pagination={{ clickable: true, dynamicBullets: true }}
                 modules={[Autoplay, Pagination]}
               >

@@ -398,8 +398,8 @@ html {
   --ion-color-tertiary: #7044ff;
   --ion-color-light: #f4f5f8;
   --ion-color-dark: #f0fff0;
-  --ion-color-tborchidpink: #7044ff;
-  --ion-color-tbhoneydew: #1d3557;
+  --ion-color-tborchidpink: #1d3557;;
+  --ion-color-tbhoneydew: rgb(24, 23, 23);
   --ion-color-tbwarning: #ffc107;
   background-color: #000000 !important;
 }

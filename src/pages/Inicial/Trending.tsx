@@ -40,8 +40,7 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import "../../components/swiper.css";
-import "../../components/swiperbig.css";
+
 import "../../components/body.css";
 
 // Install Swiper modules

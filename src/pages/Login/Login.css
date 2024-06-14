@@ -1,121 +1,59 @@
-.ion-color-tbpink {
-  --ion-color-base: var(--ion-color-tbpink);
-  --ion-color-base-rgb: var(--ion-color-tbpink-rgb);
-  --ion-color-contrast: var(--ion-color-tbpink-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-tbpink-contrast-rgb);
-  --ion-color-shade: var(--ion-color-tbpink-shade);
-  --ion-color-tint: var(--ion-color-tbpink-tint);
-}
-
-.ion-color-tbwhite {
-  --ion-color-base: var(--ion-color-tbwhite);
-  --ion-color-base-rgb: var(--ion-color-tbwhite-rgb);
-  --ion-color-contrast: var(--ion-color-tbwhite-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-tbwhite-contrast-rgb);
-  --ion-color-shade: var(--ion-color-tbwhite-shade);
-  --ion-color-tint: var(--ion-color-tbwhite-tint);
-}
-#tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* Certifique-se de que as partículas fiquem no fundo */
-}
-
-.background {
-  background-color: #d30000; /* Cor de fundo do aplicativo */
-  color: #ffffff; /* Cor do texto */
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  height: 100vh; /* Altura total da tela */
-}
-
-
 .login-container {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1; /* Ensure login form is above the particles */
-  background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a semi-transparent background to the form for better readability */
-  margin-top: 16px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Cor de fundo semi-transparente */
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0.9;
-  max-width: 500vw; /* Limit the width of the form */
-  width: 300px; /* Set a fixed width for the form */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Box shadow mais pronunciado */
+  padding: 20px;
+  max-width: 400px;
+  width: 90%;
+  margin: auto;
+  backdrop-filter: blur(10px); /* Efeito de vidro */
+
+  transform: translateY(30vw);
 }
 
-
-.login-container ion-input {
-  margin-bottom: 10px;
-}
-ion-button {
- /* Margem superior */
-}
-
-.logoimg {
-  margin-bottom: 20px;
-  width: 119px; /* Tamanho da logo */
-  height: 139; /* Altura automática mantendo a proporção */
-}
-.mySwiper {
-  position: relative;
-  z-index: 1; /* Certifique-se de que o Swiper fique acima das partículas */
-}
-
-.ion-color-tbpurple {
-  --ion-color-base: var(--ion-color-tbpurple);
-  --ion-color-base-rgb: var(--ion-color-tbpurple-rgb);
-  --ion-color-contrast: var(--ion-color-tbpurple-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-tbpurple-contrast-rgb);
-  --ion-color-shade: var(--ion-color-tbpurple-shade);
-  --ion-color-tint: var(--ion-color-tbpurple-tint);
-}
-body {
-  --ion-background-color: #d30000;
-  font-family: inter, sans-serif;
-}
-
-.logoimg {
-  fill: red !important;
-}
-
-.background {
-  background-color: #ffffff;
-  color: #ffffff;
-}
-
-.sc-ion-input-md-h {
-  --highlight-color-focused: #50c8ff;
-  --highlight-color-valid: var(--ion-color-success, #2dd36f);
-  --highlight-color-invalid: var(--ion-color-danger, #d30000);
-  --highlight-color: var(--highlight-color-focused);
-  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
+.input-field {
+  margin-bottom: 15px;
+  color: var(--ion-color-primary);
+  border-color: var(--ion-color-primary);
 }
 
 .input-fill-outline.sc-ion-input-md-h {
-  --border-color: #feb4c8;
+  --border-color: var(--ion-color-tborchidpink);
   --border-radius: 4px;
   --padding-start: 16px;
   --padding-end: 16px;
-  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
-}
-.input-fill-outline.sc-ion-input-md-h:hover {
-  --border-color: #f2bac9;
-  --border-radius: 4px;
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
-  --box-shadow: 0 2px 8px rgba(0, 140, 255, 0.2); /* Sombra suave ao passar o mouse */
+  min-height: 56px;
+  color: var(--ion-color-primary);
 }
 
-.sc-ion-input-md-h:hover {
-  --highlight-color-focused: #50c8ff;
-  --highlight-color-valid: var(--ion-color-success, #2dd36f);
-  --highlight-color-invalid: var(--ion-color-danger, #d30000);
-  --highlight-color: var(--highlight-color-focused);
-  --transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave para borda e sombra */
-  --box-shadow: 0 2px 8px rgba(0, 140, 255, 0.2); /* Sombra suave ao passar o mouse */
+.submit-button {
+  margin-top: 20px;
+}
+
+.register-container {
+  margin-top: 20px;
+  color: var(--ion-color-primary);
+}
+
+.or-divider {
+  margin: 20px 0;
+}
+
+.google-login-button {
+  margin-top: 20px;
+}
+
+.terms-text {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--ion-color-primary);
+}
+
+.background {
+  --background: #fff;
 }

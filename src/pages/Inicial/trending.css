@@ -1,11 +1,12 @@
 .deal-card {
-  background: linear-gradient(145deg, rgba(72, 72, 72, 0.8), rgba(45, 45, 45, 0.9));
+  background: rgba(255, 255, 255, 0.15); /* Cor de fundo com transparência */
   border-radius: 10px;
   color: white;
   margin: 16px;
   padding: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(5px); /* Aplica o efeito de vidro ao card */
 }
 
 .deal-card:hover {
@@ -13,11 +14,13 @@
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-#tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* Certifique-se de que as partículas fiquem no fundo */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Começa totalmente transparente */
+  }
+  to {
+    opacity: 1; /* Termina totalmente opaco */
+  }
 }
 
 .mySwiper {
@@ -89,4 +92,173 @@
   font-size: 21px;
   color: rgba(255, 69, 69, 0.7);
   text-decoration: line-through;
+}
+
+/* swiperbig */
+
+/* Unique styles for the large image Swiper */
+.large-image-swiper {
+  width: 100%;
+  height: 60vh;
+  margin-top: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.large-image-swiper .swiper-slide {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.large-image-swiper .swiper-slide::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    145deg,
+    rgba(72, 72, 72, 0.8),
+    rgba(45, 45, 45, 0.9)
+  );
+  opacity: 0.2;
+  z-index: 1;
+}
+
+.large-image-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.large-image-swiper .slide-text {
+  position: absolute;
+  color: #ffeb3b;
+  text-align: center;
+  font-weight: bold;
+  font-family: "RetroFont", sans-serif;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  max-width: 80%;
+  z-index: 2;
+  opacity: 0; /* Inicia com opacidade 0 */
+  animation: fadeIn 0.5s ease-in-out forwards; /* Animação de fade-in */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.large-image-swiper .slide-content {
+  position: absolute;
+
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  opacity: 0.5;
+  border-radius: 10px;
+  max-width: 80%;
+  z-index: 2;
+}
+
+.large-image-swiper .slide-content h1 {
+  font-size: 2.5em;
+  margin: 0;
+  font-weight: bold;
+  color: #ffffff; /* Cor do título */
+  text-align: center;
+}
+
+.large-image-swiper .slide-content p {
+  font-size: 1.5em;
+  margin: 0;
+  color: #ffffff; /* Cor do texto */
+}
+
+.large-image-swiper .swiper-button-prev,
+.large-image-swiper .swiper-button-next {
+  color: white !important;
+  width: 40px !important;
+  height: 40px !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.large-image-swiper .swiper-button-prev:hover,
+.large-image-swiper .swiper-button-next:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.1);
+}
+
+.large-image-swiper .swiper-button-prev {
+  background-image: url("/path/to/prev-arrow.png") !important;
+}
+
+.large-image-swiper .swiper-button-next {
+  background-image: url("/path/to/next-arrow.png") !important;
+}
+
+/* swipercss */
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: #ffff;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.swiper-slide img {
+  display: block;
+  width: fit-content;
+}
+
+.mySwiper {
+  color: aqua;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: black !important;
+}
+.swiper-pagination {
+  position: absolute;
+  text-align: center;
+  transition: 300ms opacity;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  color: #fff !important;
+}
+
+.swiper-pagination-bullet {
+  size: 50px;
+  background-color: #fff !important;
 }

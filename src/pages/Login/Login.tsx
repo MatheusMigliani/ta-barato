@@ -6,8 +6,8 @@ import {
   IonText,
   IonInput,
   IonIcon,
-  useIonLoading,
   IonToast,
+  useIonLoading,
   useIonRouter,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
@@ -18,10 +18,6 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import "./Login.css";
-import { Plugins } from "@capacitor/core";
-const { Browser } = Plugins;
-
-// Crie um contexto para o hook useAuth
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -61,7 +57,7 @@ const Login: React.FC = () => {
     const provider = new GoogleAuthProvider();
 
     try {
-      const result = await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
       dismiss();
       router.push("/menu", "root");
     } catch (error) {
@@ -71,10 +67,6 @@ const Login: React.FC = () => {
     }
   };
 
-  const openGoogleLogin = async () => {
-    const url = "URL_DE_AUTORIZAÇÃO_GOOGLE"; // Use a URL correta de autorização do Google
-    await Browser.open({ url });
-  };
   const showToastMessage = (message: string) => {
     setToastMessage(message);
     setShowToast(true);
@@ -82,8 +74,8 @@ const Login: React.FC = () => {
 
   return (
     <IonPage className="">
-      <IonContent className="background ion-padding" color={"dark"} fullscreen>
-        <div className="login-container ion-text-center ion-align-items-center ion-align-self-center ion">
+      <IonContent className="background ion-padding"  fullscreen>
+        <div className="login-container ion-text-center">
           <img
             src="assets/new pink.svg"
             width={119}
@@ -93,7 +85,7 @@ const Login: React.FC = () => {
           />
           <form onSubmit={DoLogin}>
             <IonInput
-              className="login-container ion-text-center"
+              className="input-field"
               fill="outline"
               label="Email"
               labelPlacement="floating"
@@ -103,7 +95,7 @@ const Login: React.FC = () => {
               onIonChange={(e) => setEmail(e.detail.value!)}
             />
             <IonInput
-              className="ion-margin-top"
+              className="input-field"
               fill="outline"
               label="Senha"
               labelPlacement="floating"
@@ -115,21 +107,21 @@ const Login: React.FC = () => {
               color={"tborchidpink"}
               expand="block"
               type="submit"
-              className="ion-margin-bottom ion-margin-top"
+              className="submit-button"
             >
               <IonText color={"dark"}>Entrar</IonText>
             </IonButton>
           </form>
           <IonButton
-            color={"light"}
+            
             expand="block"
             fill="clear"
             routerLink="/register"
-            className="ion-margin-bottom ion-margin-top ion-text-center"
+            className="register-container"
           >
             Clique aqui para se Registrar
           </IonButton>
-          <IonText color={"tborchidpink"} className="ion-margin-bottom">
+          <IonText color={"tborchidpink"} className="or-divider">
             Ou continue com o
           </IonText>
           <IonButton
@@ -137,11 +129,12 @@ const Login: React.FC = () => {
             expand="block"
             fill="outline"
             onClick={DoGoogleLogin}
+            className="google-login-button"
           >
             <IonIcon slot="start" icon={logoGoogle} />
             Google
           </IonButton>
-          <IonText color={"tborchidpink"} className="ion-margin-top">
+          <IonText color={"tborchidpink"} className="terms-text">
             Ao clicar em continuar, você aceita nossos Termos de serviço e
             Privacidade.
           </IonText>

@@ -1,77 +1,45 @@
 .profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 20px;
-  background: radial-gradient(
-    circle,
-    rgba(242, 186, 201, 1) 10%,
-    rgba(199, 108, 133, 1) 68%,
-    rgb(255, 255, 255) 200%
-  );
-  border: solid 10px;
-  border-color: rgba(242, 186, 201, 1);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.2); /* Transparência da cor de fundo */
   border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0;
+  backdrop-filter: blur(10px); /* Efeito de desfoque */
+  -webkit-backdrop-filter: blur(10px); /* Efeito de desfoque para compatibilidade com Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borda leve para destacar o efeito de vidro */
 }
 
 .profile-avatar {
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-  border: 3.5px solid rgb(252, 252, 252);
-  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+  border: solid;
+  color: var(--ion-color-primary);
 }
 
-.user-name {
-  font-size: 16px;
-  color: white;
-  margin-top: 10px;
+.user-name,
+.user-email,
+.user-rating,
+.user-dates {
+  margin: 8px 0;
 }
 
 .user-rating ion-icon {
-  color: #f5c620;
+  font-size: 24px;
+  color: var(--ion-color-primary);
+  cursor: pointer;
 }
 
 .list-title {
-  font-size: 18px;
-  color: rgb(230, 230, 230);
+  font-size: 20px;
+  font-weight: bold;
   text-align: center;
-  margin: 20px 0;
-  font-weight: 700;
-  border: solid 0.2px;
-  border-color: rgb(230, 230, 230);
-  border-radius: 16px;
-}
-
-.game-list {
-  display: flex;
-  justify-content: space-around;
-  font-weight: 700;
-}
-
-.game-list img {
-  width: 88px;
-  height: 85px;
-  border-radius: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.swiper-container {
-  width: 100%;
-  height: 100%;
-  font-weight: 700;
-}
-
-.colunapop {
   margin-top: 16px;
-  margin-bottom: 8px;
-  border: solid 0.2px;
-  border-color: rgb(230, 230, 230);
-  border-radius: 16px;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: var(--ion-color-primary);
 }
 
 .swiper-slide-content {
@@ -79,16 +47,33 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-weight: 600;
 }
 
 .swiper-slide-content img {
-  width: 100px; /* Adjust as needed */
-  height: auto;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
 }
 
-.swiper-slide-content p {
-  color: white;
-  margin-top: 10px;
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colunapop {
+  background: rgba(255, 255, 255, 0.2); /* Transparência da cor de fundo */
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0;
+  backdrop-filter: blur(10px); /* Efeito de desfoque */
+  -webkit-backdrop-filter: blur(10px); /* Efeito de desfoque para compatibilidade com Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borda leve para destacar o efeito de vidro */
+  transition: box-shadow 0.3s ease; /* Transição suave para o efeito de sombra */
+}
+
+.colunapop:hover,
+.colunapop:focus,
+.colunapop:active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Efeito de sombra */
 }
