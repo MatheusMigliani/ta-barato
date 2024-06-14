@@ -53,8 +53,6 @@ const Menu: React.FC = () => {
   const paths = [
     { name: "Inicial", url: "/menu/inicial", icon: homeOutline },
     { name: "Perfil", url: "/menu/perfil", icon: personOutline },
-    { name: "Carrinho", url: "/menu/carrinho", icon: cartOutline },
-    { name: "Configurações", url: "/menu/settings", icon: settingsOutline },
   ];
 
   const handleLogout = async () => {

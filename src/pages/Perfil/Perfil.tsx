@@ -14,7 +14,7 @@ import {
 import React from "react";
 import { Redirect, Route } from "react-router";
 import Tab1perfil from "./Tab1perfil";
-import { homeOutline, personOutline, settingsOutline } from "ionicons/icons";
+import { homeOutline, personOutline, pricetagOutline, settingsOutline } from "ionicons/icons";
 
 
 const Perfil: React.FC = () => {
@@ -22,12 +22,8 @@ const Perfil: React.FC = () => {
     <IonTabs>
       <IonTabBar color={"tbhoneydew"} slot="bottom" className="custom-tab-bar">
         <IonTabButton tab="Home" href="/menu/inicial">
-          <IonIcon color="tborchidpink" icon={homeOutline} />
+          <IonIcon color="tborchidpink" icon={pricetagOutline} />
           <IonLabel color="tborchidpink">Home</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="Configurações" href="/menu/settings">
-          <IonIcon color="tborchidpink" icon={settingsOutline} />
-          <IonLabel color="tborchidpink">Configurações</IonLabel>
         </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>

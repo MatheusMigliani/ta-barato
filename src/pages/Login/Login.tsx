@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonContent,
@@ -18,9 +18,10 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import "./Login.css";
+import { Plugins } from "@capacitor/core";
+const { Browser } = Plugins;
 
 // Crie um contexto para o hook useAuth
-
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -60,7 +61,7 @@ const Login: React.FC = () => {
     const provider = new GoogleAuthProvider();
 
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
       dismiss();
       router.push("/menu", "root");
     } catch (error) {
@@ -70,6 +71,10 @@ const Login: React.FC = () => {
     }
   };
 
+  const openGoogleLogin = async () => {
+    const url = "URL_DE_AUTORIZAÇÃO_GOOGLE"; // Use a URL correta de autorização do Google
+    await Browser.open({ url });
+  };
   const showToastMessage = (message: string) => {
     setToastMessage(message);
     setShowToast(true);

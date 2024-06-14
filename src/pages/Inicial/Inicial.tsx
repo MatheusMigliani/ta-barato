@@ -26,10 +26,6 @@ const Inicial: React.FC = () => {
           <IonIcon color="tborchidpink" icon={personOutline} />
           <IonLabel color="tborchidpink">Perfil</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="Configurações" href="/menu/settings">
-          <IonIcon color="tborchidpink" icon={settingsOutline} />
-          <IonLabel color="tborchidpink">Configurações</IonLabel>
-        </IonTabButton>
       </IonTabBar>
       <IonRouterOutlet>
         <Route path="/menu/Inicial/Trending" component={Trending}  />

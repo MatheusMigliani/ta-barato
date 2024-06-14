@@ -32,6 +32,8 @@ import {
   getMostCollectedGames,
   getMostWaitlistedGames,
   getPriceHistory,
+  getGameURL,
+  getGameBanner,
 } from "../../services/api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -74,23 +76,41 @@ const Ofertas: React.FC = () => {
         getMostWaitlistedGames(),
       ]);
 
+      const enrichedDealsData = await Promise.all(
+        dealsData.map(async (deal) => {
+          const gameBanner = await getGameBanner(deal.id);
+          return {
+            ...deal,
+            banner600: gameBanner,
+          };
+        })
+      );
+
       const enrichedMostPopularGames = await Promise.all(
         mostPopularData.map(async (game) => {
           const gameInfo = await getGameInfo(game.id);
           const gameBoxart = await getGameBoxart(game.id);
+          const gameBanner = await getGameBanner(game.id); // Alteração aqui
           const priceHistory = await getPriceHistory(game.id);
+
+          const currentGamePrice = priceHistory.find(
+            (price) => price.id === game.id
+          );
 
           return {
             ...game,
+            banner: gameBanner,
             image: gameBoxart,
             price: priceHistory[0]?.deal?.price.amount,
             regular: priceHistory[0]?.deal?.regular.amount,
             cut: priceHistory[0]?.deal?.cut,
+
             historyLow: priceHistory.reduce(
               (min, p) =>
                 p.deal.price.amount < min ? p.deal.price.amount : min,
               priceHistory[0]?.deal.price.amount
             ),
+            // Adiciona a URL do jogo ao objeto do jogo
           };
         })
       );
@@ -124,12 +144,17 @@ const Ofertas: React.FC = () => {
           const gameBoxart = await getGameBoxart(game.id);
           const priceHistory = await getPriceHistory(game.id);
 
+          const currentGamePrice = priceHistory.find(
+            (price) => price.id === game.id
+          );
+
           return {
             ...game,
             image: gameBoxart,
             price: priceHistory[0]?.deal?.price.amount,
             regular: priceHistory[0]?.deal?.regular.amount,
             cut: priceHistory[0]?.deal?.cut,
+
             historyLow: priceHistory.reduce(
               (min, p) =>
                 p.deal.price.amount < min ? p.deal.price.amount : min,
@@ -144,7 +169,9 @@ const Ofertas: React.FC = () => {
           const gameInfo = await getGameInfo(game.id);
           const gameBoxart = await getGameBoxart(game.id);
           const priceHistory = await getPriceHistory(game.id);
-
+          const currentGamePrice = priceHistory.find(
+            (price) => price.id === game.id
+          );
           return {
             ...game,
             image: gameBoxart,
@@ -182,6 +209,11 @@ const Ofertas: React.FC = () => {
     window.open(url, "_blank"); // Abre a URL em uma nova aba
   };
 
+  const handleLink = async (gameId) => {
+    const url = await getGameURL(gameId);
+    window.open(url, "_blank"); // Abre a URL em uma nova aba
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -205,6 +237,7 @@ const Ofertas: React.FC = () => {
             />
           </IonRefresher>
         </div>
+
         <Swiper
           className="large-image-swiper" // Unique class name for this Swiper
           autoplay={{
@@ -223,7 +256,7 @@ const Ofertas: React.FC = () => {
               <div
                 className="swiper-slide"
                 style={{
-                  backgroundImage: `url(${game.boxart})`,
+                  backgroundImage: `url(${game.image})`,
                   backgroundSize: "cover", // Maintain aspect ratio
                   backgroundPosition: "center", // Center the image
                 }}
@@ -261,7 +294,7 @@ const Ofertas: React.FC = () => {
                   <div className="card-content">
                     <IonImg
                       className="main-image"
-                      src={deal.image}
+                      src={deal.banner600}
                       alt={`Main image for ${deal.title}`}
                     />
                     <div className="details">
@@ -341,7 +374,7 @@ const Ofertas: React.FC = () => {
                           expand="block"
                           fill="outline"
                           color="warning"
-                          onClick={() => handleLinkClick(game.urls.game)}
+                          onClick={() => handleLink(game.id)}
                         >
                           <IonIcon icon={cartOutline} />
                           Comprar
@@ -397,7 +430,7 @@ const Ofertas: React.FC = () => {
                           expand="block"
                           fill="outline"
                           color="warning"
-                          onClick={() => handleLinkClick(game.urls.game)}
+                          onClick={() => handleLink(game.id)}
                         >
                           <IonIcon icon={cartOutline} />
                           Comprar
@@ -454,7 +487,7 @@ const Ofertas: React.FC = () => {
                           expand="block"
                           fill="outline"
                           color="warning"
-                          onClick={() => handleLinkClick(game.urls.game)}
+                          onClick={() => handleLink(game.id)}
                         >
                           <IonIcon icon={cartOutline} />
                           Comprar

@@ -30,9 +30,25 @@ export const getGameInfo = async (gameId) => {
         id: gameId,
       },
     });
+
     return response.data.assets.banner600;
   } catch (error) {
     console.error("Error fetching game info:", error);
+  }
+};
+
+export const getGameBanner = async (gameId) => {
+  try {
+    const response = await http.get("games/info/v2", {
+      params: {
+        key: apiKey,
+        id: gameId,
+      },
+    });
+    return response.data.assets.banner600;
+  } catch (error) {
+    console.error("Error fetching game banner:", error);
+    return ""; // Retornar uma string vazia em caso de erro
   }
 };
 
@@ -44,13 +60,26 @@ export const getGameBoxart = async (gameId) => {
         id: gameId,
       },
     });
-   
     return response.data.assets.boxart;
   } catch (error) {
     console.error("Error fetching game info:", error);
   }
 };
 
+export const getGameURL = async (gameId) => {
+  try {
+    const response = await http.get("games/info/v2", {
+      params: {
+        key: apiKey,
+        id: gameId,
+      },
+    });
+    console.log("game info:", response.data.urls.game);
+    return response.data.urls.game;
+  } catch (error) {
+    console.error("Error fetching game info:", error);
+  }
+};
 export const getMostPopularGames = async () => {
   try {
     const response = await http.get("stats/most-popular/v1", {
@@ -89,6 +118,7 @@ export const getMostWaitlistedGames = async () => {
       params: {
         key: apiKey,
         limit: 30,
+        country: "BR",
       },
     });
     console.log("waitlisted:", response.data);
@@ -101,9 +131,9 @@ export const getMostWaitlistedGames = async () => {
 export const getPriceHistory = async (gameId: string) => {
   try {
     const response = await http.get("games/history/v2", {
-      params: { key: apiKey, id: gameId },
+      params: { key: apiKey, country: "BR", id: gameId },
     });
-    console.log("price:", response.data);
+
     return response.data;
   } catch (error) {
     console.error("Error fetching price history:", error);

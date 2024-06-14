@@ -5,15 +5,15 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
   IonPage,
   IonRow,
+  IonText,
   IonToolbar,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 
 import Hamburguerbotao from "../../components/hamburguerbotao";
-import { starOutline, star } from "ionicons/icons";
+import { starOutline, star, personCircleOutline } from "ionicons/icons";
 import {
   getMostPopularGames,
   getMostCollectedGames,
@@ -23,22 +23,26 @@ import {
 } from "../../services/api";
 import "./perfil.css";
 
-import "../../components/tabs.css"
+import "../../components/tabs.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import "swiper/css/pagination";
 import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-
-import { auth } from "../../services/FirebaseConfig"; // Importe o contexto de autenticação do Firebase
-import { useAuth } from "../Login/Login";
+import { auth } from "../../services/FirebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
+import ImageUploader from "../../components/ImageUploader";
 
 // Install Swiper modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const Tab1perfil: React.FC = () => {
- // Obtenha o usuário autenticado do contexto de autenticação
+  // Obtenha o usuário autenticado do contexto de autenticação
+  /* const [user] = useAuthState(auth); // Obtém o usuário autenticado do hook useAuthState */
 
+  const [user, setUser] = useState<any>(null);
+  const [registrationDate, setRegistrationDate] = useState<string>("");
+  const [lastLoginDate, setLastLoginDate] = useState<string>("");
   const [starRating, setStarRating] = useState([
     false,
     false,
@@ -50,12 +54,26 @@ const Tab1perfil: React.FC = () => {
   const [mostCollectedGames, setMostCollectedGames] = useState([]);
   const [mostWaitlistedGames, setMostWaitlistedGames] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
- // Use a foto de perfil do usuário autenticado como imagem inicial
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  // Use a foto de perfil do usuário autenticado como imagem inicial
 
   useEffect(() => {
+    const imageUrl = localStorage.getItem("profileImageUrl");
+    if (imageUrl) {
+      setProfileImageUrl(imageUrl);
+    }
     fetchData();
+    getUserInfo();
   }, []);
 
+  const getUserInfo = () => {
+    const user = auth.currentUser;
+    if (user) {
+      setUser(user);
+      setRegistrationDate(user.metadata.creationTime);
+      setLastLoginDate(user.metadata.lastSignInTime);
+    }
+  };
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -119,9 +137,10 @@ const Tab1perfil: React.FC = () => {
     );
     setStarRating(newRating);
   };
-
- 
-
+  const handleImageSelected = (imageUrl: string) => {
+    localStorage.setItem("profileImageUrl", imageUrl); // Armazena a URL da imagem no armazenamento local
+    setProfileImageUrl(imageUrl);
+  };
   return (
     <IonPage>
       <IonHeader>
@@ -133,15 +152,18 @@ const Tab1perfil: React.FC = () => {
         <IonGrid>
           <IonRow>
             <IonCol className="profile-header" size="12">
-              <IonAvatar className="profile-avatar">
-                
-            
+            <IonAvatar className="profile-avatar">
+                {profileImageUrl ? (
+                  <img src={profileImageUrl} alt="Profile" />
+                ) : (
+                  <IonIcon icon={personCircleOutline} />
+                )}
               </IonAvatar>
-              <input
-                type="file"
-                accept="image/*"
-              />
-              <div className="user-name">"USUARIO"</div>
+              {!profileImageUrl && (
+                <ImageUploader onImageSelected={handleImageSelected} />
+              )}
+              <div className="user-name">{user ? user.displayName : ""}</div>
+              <div className="user-email">{user ? user.email : ""}</div>
               <div className="user-rating">
                 {starRating.map((filled, index) => (
                   <IonIcon
@@ -150,6 +172,17 @@ const Tab1perfil: React.FC = () => {
                     onClick={() => handleStarClick(index)}
                   />
                 ))}
+              </div>
+              <div className="user-email">
+                <IonText>
+                  Data de Registro
+                  <br /> {registrationDate}
+                </IonText>
+                <br />
+                <IonText>
+                  Último Login <br />
+                  {lastLoginDate}
+                </IonText>
               </div>
             </IonCol>
           </IonRow>
