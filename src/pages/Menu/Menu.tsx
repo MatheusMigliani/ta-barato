@@ -62,6 +62,7 @@ const Menu: React.FC = () => {
       setShowLogoutToast(true); // Exibe o toast de logout
       await auth.signOut();
       setLogoutSuccess(true);
+      localStorage.clear(); // Limpa o localStorage
     }
   };
 

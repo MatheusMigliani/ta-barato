@@ -133,9 +133,10 @@ export const getPriceHistory = async (gameId: string) => {
     const response = await http.get("games/history/v2", {
       params: { key: apiKey, country: "BR", id: gameId },
     });
-
+  
     return response.data;
   } catch (error) {
     console.error("Error fetching price history:", error);
   }
 };
+ 

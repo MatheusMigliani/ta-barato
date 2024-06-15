@@ -1,6 +1,7 @@
 // src/pages/Register.js
 import React, { useState } from "react";
 import {
+  InputChangeEventDetail,
   IonButton,
   IonContent,
   IonFooter,
@@ -23,7 +24,6 @@ import "./Register.css";
 import { isValidCEP, formatCEP } from "@brazilian-utils/brazilian-utils";
 
 import { isValidCPF, formatCPF } from "@brazilian-utils/brazilian-utils";
-import { isBefore, parse } from "date-fns";
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +35,23 @@ const Register: React.FC = () => {
   const [present, dismiss] = useIonLoading();
   const router = useIonRouter();
 
+  const handleBirthdateChange = (
+    event: CustomEvent<InputChangeEventDetail>
+  ) => {
+    const newBirthdate = event.detail.value;
+    setBirthdate(newBirthdate as string);
+
+    const birthdateParts = (newBirthdate as string).split("-");
+    const birthdateYear = parseInt(birthdateParts[0]);
+    const today = new Date();
+    const age = today.getFullYear() - birthdateYear;
+
+    if (age >= 18 && age <= 75) {
+      showToastMessage("Idade válida.");
+    } else {
+      showToastMessage("Idade inválida. Informe uma idade entre 18 e 75 anos.");
+    }
+  };
   const DoRegister = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -61,19 +78,6 @@ const Register: React.FC = () => {
       return;
     }
 
-    const today = new Date();
-    const birthdateDate = new Date(birthdate);
-    let age = today.getFullYear() - birthdateDate.getFullYear();
-
-    if (today < new Date(today.setFullYear(today.getFullYear() - age))) {
-      age--;
-    }
-
-    if (age < 18) {
-      showToastMessage("Você deve ter mais de 18 anos para se registrar");
-      return;
-    }
-
     await present("Finalizando Registro...");
 
     try {
@@ -82,12 +86,18 @@ const Register: React.FC = () => {
       showToastMessage("Registro realizado com sucesso.");
       router.push("/menu", "root");
     } catch (error) {
-      console.error("Erro ao registrar:", error);
-      showToastMessage("Erro ao registrar.");
+      // Verificar o erro retornado pelo Firebase
+      if (error.code === "auth/email-already-in-use") {
+        showToastMessage(
+          "E-mail já cadastrado. Por favor, utilize outro e-mail."
+        );
+      } else {
+        console.error("Erro ao registrar:", error);
+        showToastMessage("Erro ao registrar.");
+      }
       dismiss();
     }
   };
-
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -135,7 +145,7 @@ const Register: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent className="background ion-padding"  fullscreen>
+      <IonContent className="background ion-padding" fullscreen>
         <div className="ion-padding ion-text-center">
           <img
             src="assets/new pink.svg"
@@ -211,6 +221,8 @@ const Register: React.FC = () => {
             labelPlacement="floating"
             placeholder="Data de nascimento"
             type="date"
+            value={birthdate}
+            onIonChange={handleBirthdateChange}
             required
           />
 
