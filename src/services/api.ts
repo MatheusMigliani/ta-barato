@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiKey = "ecc3f1d88691c5c5fc3010084cf9973dd7945d79";
+const apiKey = "";
 const http = axios.create({
   baseURL: "https://api.isthereanydeal.com/",
 });
